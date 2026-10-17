@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>组合理论与因子投资</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="15">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 15 章 · 进阶篇</div>
+  <h1>组合理论与因子投资</h1>
+  <p class="lead">第 06 章讲了资产配置的"经验法则"，这一章介绍背后的理论基础：为什么分散化有效、如何量化风险调整后的收益，以及学术界和业界如何用"因子"来解释和获取收益。</p>
+  <div class="meta"><span class="pill">⏱ 约 60 分钟</span><span class="pill">难度 ★★★★</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#stats">基础统计：期望、标准差、相关性</a></li>
+    <li><a href="#mpt">现代组合理论（MPT）</a></li>
+    <li><a href="#frontier">有效前沿</a></li>
+    <li><a href="#capm">CAPM：α 与 β</a></li>
+    <li><a href="#metrics">风险调整收益指标</a></li>
+    <li><a href="#factor">因子投资</a></li>
+    <li><a href="#smartbeta">Smart Beta 产品</a></li>
+    <li><a href="#rp">风险平价</a></li>
+    <li><a href="#limits">理论的局限</a></li>
+  </ol></nav>
+
+  <h2 id="stats">1. 基础统计：期望、标准差、相关性</h2>
+  <ul>
+    <li><strong>期望收益</strong>：所有可能结果按概率加权的平均值；</li>
+    <li><strong>标准差（σ）</strong>：收益偏离平均值的程度，即波动率。在正态分布假设下，约 68% 的年份收益落在"均值 ± 1σ"之间，约 95% 落在"均值 ± 2σ"之间；</li>
+    <li><strong>相关系数（ρ）</strong>：两种资产同涨同跌的程度，范围 −1 到 +1。</li>
+  </ul>
+  <div class="callout example"><span class="title">理解波动率</span><p>某指数年化收益 8%、年化波动率 20%。那么在大约 2/3 的年份里，收益在 −12% 到 +28% 之间；大约每 20 年中会有 1 年收益低于 −32% 或高于 +48%。真实市场的极端情况（"肥尾"）比正态分布预测的更频繁。</p></div>
+  <h3>波动拖累：算术平均 vs 几何平均</h3>
+  <div class="formula">几何平均收益 ≈ 算术平均收益 − σ² ÷ 2</div>
+  <p>两种资产算术平均收益都是 10%，波动率 10% 的几何平均约 9.5%，波动率 30% 的只有约 5.5%。<strong>波动本身会侵蚀长期复利收益</strong>，这也是降低波动有价值的数学原因。</p>
+
+  <h2 id="mpt">2. 现代组合理论（MPT）</h2>
+  <p>1952 年，哈里·马科维茨发表《投资组合选择》，奠定了现代金融学的基础（后获诺贝尔经济学奖）。核心洞见：</p>
+  <div class="callout info"><span class="title">核心洞见</span><p><strong>评估一项资产，不应只看它自身的风险和收益，而要看它加入组合后对整体风险收益的贡献。</strong></p></div>
+  <p>两资产组合的波动率：</p>
+  <div class="formula">σ<sub>p</sub>² = w₁²σ₁² + w₂²σ₂² + 2w₁w₂ρσ₁σ₂</div>
+  <div class="table-wrap"><table>
+    <tr><th>相关系数 ρ</th><th>50/50 组合的波动率（两者 σ 均为 20%）</th></tr>
+    <tr><td>+1.0（完全同步）</td><td>20%（没有分散效果）</td></tr>
+    <tr><td>+0.5</td><td>17.3%</td></tr>
+    <tr><td>0（不相关）</td><td>14.1%</td></tr>
+    <tr><td>−0.5</td><td>10%</td></tr>
+    <tr><td>−1.0（完全反向）</td><td>0%（完全对冲）</td></tr>
+  </table></div>
+  <p>只要相关系数小于 1，组合的波动率就低于各资产波动率的加权平均——这就是"分散化是唯一的免费午餐"的数学含义。</p>
+  <div class="callout warn"><span class="title">危机中相关性会上升</span><p>在市场恐慌时，很多原本低相关的风险资产会同时下跌（"相关性趋于 1"）。真正能在危机中提供保护的，通常只有高等级国债、现金，有时还包括黄金。</p></div>
+
+  <h2 id="frontier">3. 有效前沿</h2>
+  <p>把所有可能的资产组合画在"风险（横轴）- 收益（纵轴）"图上，左上方的边界就是<strong>有效前沿</strong>：在同等风险下收益最高，或在同等收益下风险最低的组合集合。</p>
+  <ul>
+    <li>有效前沿下方的组合都是"无效"的——存在更好的选择；</li>
+    <li>引入无风险资产后，从无风险利率出发、与有效前沿相切的直线叫做<strong>资本市场线（CML）</strong>，切点就是"市场组合"（理论上的最优风险组合）；</li>
+    <li>理论推论：所有投资者都应持有"市场组合 + 无风险资产"，只是比例不同——这正是<strong>指数基金 + 债券</strong>配置的理论依据。</li>
+  </ul>
+
+  <h2 id="capm">4. CAPM：α 与 β</h2>
+  <div class="formula">预期收益 = 无风险利率 + β × (市场收益 − 无风险利率)</div>
+  <ul>
+    <li><strong>β（贝塔）</strong>：资产对市场的敏感度。β = 1 与市场同步；β &gt; 1 波动更大（如券商、科技股）；β &lt; 1 更稳定（如公用事业）；</li>
+    <li><strong>α（阿尔法）</strong>：实际收益超出 CAPM 预期的部分，代表"真正的"超额收益或管理能力。</li>
+  </ul>
+  <div class="callout example"><span class="title">例子</span><p>某基金去年收益 18%，同期市场收益 12%，无风险利率 2%，基金 β = 1.4。CAPM 预期收益 = 2% + 1.4 × 10% = 16%，α = 18% − 16% = 2%。看似跑赢市场 6 个百分点，但大部分来自更高的风险暴露，真正的超额只有 2%。</p></div>
+  <p>理解这一点，你就能识破很多"业绩神话"：在牛市里高 β 的基金自然涨得多，这并不代表能力。</p>
+
+  <h2 id="metrics">5. 风险调整收益指标</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标</th><th>公式</th><th>解读</th></tr>
+    <tr><td>夏普比率</td><td>(R<sub>p</sub> − R<sub>f</sub>) ÷ σ<sub>p</sub></td><td>每承担 1 单位总波动获得的超额收益。&gt; 1 较好，&gt; 2 优秀（长期难以维持）</td></tr>
+    <tr><td>索提诺比率</td><td>(R<sub>p</sub> − R<sub>f</sub>) ÷ 下行波动率</td><td>只惩罚下跌波动，更贴近投资者的真实感受</td></tr>
+    <tr><td>卡玛比率</td><td>年化收益 ÷ 最大回撤</td><td>衡量"赚的钱"与"最痛的时候"之比</td></tr>
+    <tr><td>信息比率</td><td>超额收益 ÷ 跟踪误差</td><td>衡量主动管理能力的稳定性，常用于评价主动基金</td></tr>
+    <tr><td>特雷诺比率</td><td>(R<sub>p</sub> − R<sub>f</sub>) ÷ β</td><td>每承担 1 单位系统性风险的超额收益</td></tr>
+  </table></div>
+  <p>比较两只基金时，不能只看收益率。收益 20%、最大回撤 40% 的基金，未必比收益 12%、最大回撤 10% 的基金更好。</p>
+
+  <h2 id="factor">6. 因子投资</h2>
+  <p>研究者发现，除了市场整体（β），还有一些系统性特征能够长期解释股票收益的差异，这些特征被称为<strong>因子</strong>。</p>
+  <h3>Fama-French 模型的演进</h3>
+  <ul>
+    <li><strong>三因子模型（1993）</strong>：市场因子 + 规模因子（小盘股长期跑赢大盘股）+ 价值因子（低估值跑赢高估值）；</li>
+    <li><strong>五因子模型（2015）</strong>：再加入盈利因子（高盈利跑赢低盈利）+ 投资因子（保守投资跑赢激进投资）；</li>
+    <li>Carhart 四因子模型加入了<strong>动量因子</strong>（过去 3–12 个月涨得好的股票，短期内倾向于继续表现好）。</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <tr><th>因子</th><th>含义</th><th>可能的解释</th></tr>
+    <tr><td>价值（Value）</td><td>低 PE、低 PB 的股票</td><td>风险补偿（困境公司）或投资者过度悲观</td></tr>
+    <tr><td>规模（Size）</td><td>小市值股票</td><td>流动性差、风险高的补偿</td></tr>
+    <tr><td>动量（Momentum）</td><td>近期强势股</td><td>投资者对信息反应不足、羊群效应</td></tr>
+    <tr><td>质量（Quality）</td><td>高 ROE、低负债、盈利稳定</td><td>市场低估了"无聊的好公司"</td></tr>
+    <tr><td>低波动（Low Vol）</td><td>波动率低的股票</td><td>投资者偏好"彩票型"高波动股，导致其被高估</td></tr>
+    <tr><td>红利（Dividend）</td><td>高股息率股票</td><td>与价值、质量因子相关</td></tr>
+  </table></div>
+  <div class="callout warn"><span class="title">因子的周期性</span><p>任何因子都可能长期失效。例如价值因子在 2010 年代的美国市场跑输了约十年；A 股小盘因子曾长期有效，但在 2017 年前后经历了大幅回撤。因子收益来自承担某种风险或利用某种行为偏差，<strong>需要忍受长期跑输的痛苦</strong>，否则这种收益早就被套利消失了。</p></div>
+
+  <h2 id="smartbeta">7. Smart Beta 产品</h2>
+  <p>Smart Beta 是指不按市值、而是按某种因子规则编制的指数和对应的基金。它介于纯被动和主动之间，费率低于主动基金、规则透明。</p>
+  <div class="grid">
+    <div class="card"><h4>红利类</h4><p>中证红利、红利低波、标普中国 A 股红利机会等，选择高股息股票</p></div>
+    <div class="card"><h4>价值类</h4><p>沪深 300 价值、300 价值稳健等</p></div>
+    <div class="card"><h4>质量类</h4><p>MSCI 中国 A 股质量、高 ROE 类指数</p></div>
+    <div class="card"><h4>低波动类</h4><p>低波动指数，熊市中通常更抗跌</p></div>
+    <div class="card"><h4>等权类</h4><p>每只成分股权重相同，相当于增加了小盘因子暴露</p></div>
+    <div class="card"><h4>多因子类</h4><p>综合多个因子，力求分散单一因子失效的风险</p></div>
+  </div>
+  <p>在核心-卫星策略中，可以用宽基指数做核心，用 1–2 只不同因子的 Smart Beta 产品做补充，因子之间相关性低能进一步分散风险。</p>
+
+  <h2 id="rp">8. 风险平价（Risk Parity）</h2>
+  <p>传统的 60/40 股债组合，看似资金平衡，但由于股票波动远大于债券，组合约 <strong>90% 的风险来自股票</strong>。风险平价的思路是：让每类资产对组合的<strong>风险贡献相等</strong>。</p>
+  <div class="callout example"><span class="title">简化示例</span><p>股票波动率 18%，债券波动率 4%，忽略相关性，按波动率倒数分配：股票权重 ≈ (1/18) ÷ (1/18 + 1/4) ≈ 18%，债券 ≈ 82%。这样的组合波动低，但收益也低，因此机构常通过加杠杆把整体收益提升到目标水平。</p></div>
+  <p>桥水的"全天候"策略是这一思想的著名代表，它按增长和通胀的四种情景分配资产，力图在任何经济环境下都表现稳健。<strong>个人投资者不宜加杠杆</strong>，但可以借鉴"按风险而非资金分配"的思维，审视自己组合的风险是否过度集中。</p>
+
+  <h2 id="limits">9. 理论的局限</h2>
+  <ul>
+    <li><strong>输入参数不稳定</strong>：预期收益、波动率、相关性都是根据历史估计的，而未来会变化。均值-方差优化对输入非常敏感，常给出极端的配置；</li>
+    <li><strong>肥尾风险</strong>：真实收益分布有比正态分布更多的极端事件（黑天鹅）；</li>
+    <li><strong>波动 ≠ 风险</strong>：对长期投资者而言，真正的风险是"永久性损失本金"和"达不成目标"，而不是短期波动。霍华德·马克斯和巴菲特都强调这一点；</li>
+    <li><strong>市场并非完全有效</strong>：行为金融学揭示了大量系统性偏差，这也是因子存在的原因之一。</li>
+  </ul>
+  <div class="callout tip"><span class="title">实践建议</span><p>理论最大的价值是提供<strong>思维框架</strong>：重视相关性、关注风险调整后的收益、理解收益来源（β 还是 α）。不要试图精确地"优化"组合，简单、稳健、可执行的配置通常更好。</p></div>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：基金 A 年化收益 15%，波动率 25%；基金 B 年化收益 10%，波动率 10%。无风险利率 2%，哪只的夏普比率更高？</div>
+    <details><summary>查看答案</summary><p>A：(15−2)/25 = 0.52；B：(10−2)/10 = 0.8。B 的风险调整后收益更好。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：为什么说 60/40 组合"资金平衡，风险不平衡"？</div>
+    <details><summary>查看答案</summary><p>股票波动率通常是高等级债券的 3–5 倍，即使只占 60% 的资金，也贡献了组合绝大部分的波动风险。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

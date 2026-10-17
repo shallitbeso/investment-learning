@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>投资术语表</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+<style>
+  .search { width: 100%; font: inherit; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); margin-bottom: 16px; }
+  .term { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; }
+  .term b { font-size: 16.5px; }
+  .term .en { color: var(--text-2); font-size: 13px; margin-left: 6px; }
+  .term .tag { float: right; font-size: 12px; color: var(--text-2); background: var(--surface-2); padding: 1px 8px; border-radius: 99px; }
+  .term p { margin: 4px 0 0; font-size: 15px; color: var(--text-2); }
+</style>
+</head>
+<body data-page="10">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 10 章</div>
+  <h1>投资术语表</h1>
+  <p class="lead">遇到不懂的词，来这里查。支持中英文搜索。</p>
+  <input class="search" id="q" placeholder="搜索术语，例如：市盈率、久期、ETF……" autocomplete="off">
+  <div id="count" style="font-size:14px;color:var(--text-2);margin-bottom:10px"></div>
+  <div id="terms"></div>
+</article></main>
+</div>
+<script>
+const TERMS = [
+  ["复利","Compound Interest","基础","利息再产生利息，收益随时间呈指数增长。"],
+  ["通货膨胀","Inflation","基础","物价总水平持续上涨，货币购买力下降。常用 CPI 衡量。"],
+  ["CPI","Consumer Price Index","宏观","居民消费价格指数，衡量消费品和服务价格变化。"],
+  ["PPI","Producer Price Index","宏观","工业生产者出厂价格指数，反映上游价格变化，常领先于 CPI。"],
+  ["PMI","Purchasing Managers' Index","宏观","采购经理指数，50 为荣枯线，高于 50 表示经济扩张。"],
+  ["GDP","Gross Domestic Product","宏观","国内生产总值，衡量一个国家经济总量。"],
+  ["M2","Broad Money","宏观","广义货币供应量，包括现金和各类存款，反映流动性松紧。"],
+  ["社融","Total Social Financing","宏观","社会融资规模，实体经济从金融体系获得的资金总额。"],
+  ["LPR","Loan Prime Rate","宏观","贷款市场报价利率，是国内贷款利率的定价基准。"],
+  ["降准","RRR Cut","宏观","下调存款准备金率，释放银行可贷资金，属于宽松货币政策。"],
+  ["年化收益率","Annualized Return","基础","把不同期限的收益换算为每年的收益率，便于比较。"],
+  ["XIRR","Extended Internal Rate of Return","基础","考虑每笔现金流时间点的年化收益率，适合计算定投收益。"],
+  ["流动性","Liquidity","基础","资产能多快、以多小的损失转换成现金。"],
+  ["波动率","Volatility","风险","收益率的标准差，衡量价格起伏剧烈程度。"],
+  ["最大回撤","Maximum Drawdown","风险","一段时间内从最高点到最低点的最大跌幅。"],
+  ["夏普比率","Sharpe Ratio","风险","(组合收益 − 无风险利率) ÷ 波动率。每承担一单位风险获得的超额收益。"],
+  ["索提诺比率","Sortino Ratio","风险","与夏普类似，但只把下行波动视为风险。"],
+  ["卡玛比率","Calmar Ratio","风险","年化收益 ÷ 最大回撤。"],
+  ["贝塔","Beta (β)","风险","衡量资产相对于市场的敏感度。β=1.2 表示市场涨跌 1%，它平均涨跌 1.2%。"],
+  ["阿尔法","Alpha (α)","风险","扣除市场贡献（β）后的超额收益，代表管理能力。"],
+  ["相关系数","Correlation","风险","衡量两种资产走势同步程度，范围 −1 到 1。"],
+  ["系统性风险","Systematic Risk","风险","影响整个市场的风险，无法通过分散消除。"],
+  ["非系统性风险","Idiosyncratic Risk","风险","个别公司或行业特有的风险，可通过分散降低。"],
+  ["杠杆","Leverage","风险","借钱投资，放大收益也放大亏损。"],
+  ["爆仓 / 强制平仓","Liquidation","风险","保证金不足时被强制卖出持仓。"],
+  ["股票","Stock / Share","股票","公司所有权的凭证。"],
+  ["蓝筹股","Blue Chip","股票","规模大、经营稳定、业绩优良的龙头公司股票。"],
+  ["ST 股","Special Treatment","股票","财务或经营异常、被交易所特别处理的股票。"],
+  ["IPO","Initial Public Offering","股票","首次公开募股，公司第一次向公众发行股票并上市。"],
+  ["打新","IPO Subscription","股票","申购新股，中签后可按发行价买入。"],
+  ["T+1","T+1 Settlement","股票","当日买入的证券次日才能卖出（A 股规则）。"],
+  ["涨跌停","Price Limit","股票","单日价格涨跌的最大幅度限制。"],
+  ["集合竞价","Call Auction","股票","在一段时间内集中撮合订单、以单一价格成交的方式（开盘、收盘）。"],
+  ["限价单","Limit Order","股票","指定价格或更优价格才成交的订单。"],
+  ["市价单","Market Order","股票","以当前市场最优价格立即成交的订单。"],
+  ["换手率","Turnover Rate","股票","成交量 ÷ 流通股本，反映交易活跃度。"],
+  ["市值","Market Capitalization","股票","股价 × 总股本。"],
+  ["分红","Dividend","股票","公司把利润以现金或股票形式分给股东。"],
+  ["除权除息","Ex-Dividend / Ex-Rights","股票","分红或送转股后，股价相应调整。"],
+  ["回购","Share Buyback","股票","公司用自有资金买回自家股票，通常注销以提升每股收益。"],
+  ["融资融券","Margin Trading & Short Selling","股票","向券商借钱买股票（融资）或借股票卖出（融券）。"],
+  ["做空","Short Selling","股票","先借入卖出，未来低价买回归还，从下跌中获利。"],
+  ["营业收入","Revenue","财报","公司销售商品或提供服务获得的收入。"],
+  ["毛利率","Gross Margin","财报","(营收 − 营业成本) ÷ 营收。"],
+  ["净利润","Net Profit","财报","扣除所有成本、费用和税后的利润。"],
+  ["归母净利润","Net Profit Attributable to Shareholders","财报","归属于上市公司股东的净利润，剔除了少数股东部分。"],
+  ["扣非净利润","Recurring Net Profit","财报","扣除非经常性损益后的净利润，更能反映主业盈利。"],
+  ["EPS","Earnings Per Share","财报","每股收益 = 净利润 ÷ 总股本。"],
+  ["ROE","Return on Equity","财报","净资产收益率 = 净利润 ÷ 平均净资产。"],
+  ["ROA","Return on Assets","财报","总资产收益率 = 净利润 ÷ 平均总资产。"],
+  ["ROIC","Return on Invested Capital","财报","投入资本回报率，衡量公司使用全部投入资本的效率。"],
+  ["杜邦分析","DuPont Analysis","财报","把 ROE 拆解为净利率 × 资产周转率 × 权益乘数。"],
+  ["资产负债率","Debt-to-Asset Ratio","财报","总负债 ÷ 总资产。"],
+  ["经营现金流","Operating Cash Flow","财报","主营业务带来的现金净流入。"],
+  ["自由现金流","Free Cash Flow (FCF)","财报","经营现金流 − 资本开支，公司可自由支配的现金。"],
+  ["资本开支","CapEx","财报","购建固定资产、无形资产等长期资产的支出。"],
+  ["商誉","Goodwill","财报","收购价格超过被收购公司净资产公允价值的部分，存在减值风险。"],
+  ["应收账款","Accounts Receivable","财报","已经卖出商品但还没收到的钱。"],
+  ["合同负债","Contract Liabilities","财报","提前收到客户的钱但尚未交付商品或服务（预收款）。"],
+  ["递延收入","Deferred Revenue","财报","已收款但需要在未来期间确认的收入。"],
+  ["非经常性损益","Non-recurring Items","财报","与主营业务无关、偶发的收益或损失，如政府补助、资产处置。"],
+  ["非 GAAP / 非 IFRS","Non-GAAP / Non-IFRS","财报","公司自行调整后的利润口径，通常剔除股权激励等，需谨慎对待。"],
+  ["EBITDA","Earnings Before Interest, Taxes, Depreciation and Amortization","财报","息税折旧摊销前利润。"],
+  ["市盈率","P/E Ratio","估值","股价 ÷ 每股收益。"],
+  ["市净率","P/B Ratio","估值","股价 ÷ 每股净资产。"],
+  ["市销率","P/S Ratio","估值","市值 ÷ 营业收入，适合尚未盈利的成长公司。"],
+  ["PEG","Price/Earnings to Growth","估值","市盈率 ÷ 盈利增长率（×100）。"],
+  ["EV/EBITDA","Enterprise Value / EBITDA","估值","企业价值倍数，考虑了负债和现金。"],
+  ["股息率","Dividend Yield","估值","每股分红 ÷ 股价。"],
+  ["DCF","Discounted Cash Flow","估值","现金流折现模型，把未来现金流折算成现值。"],
+  ["WACC","Weighted Average Cost of Capital","估值","加权平均资本成本，DCF 的折现率。"],
+  ["安全边际","Margin of Safety","估值","内在价值与买入价格之间的差距。"],
+  ["估值百分位","Valuation Percentile","估值","当前估值在历史上的相对位置。"],
+  ["护城河","Economic Moat","估值","公司长期抵御竞争的优势。"],
+  ["净值","Net Asset Value (NAV)","基金","基金每份额的资产价值。"],
+  ["ETF","Exchange Traded Fund","基金","交易所交易基金，可像股票一样买卖。"],
+  ["LOF","Listed Open-ended Fund","基金","上市型开放式基金。"],
+  ["QDII","Qualified Domestic Institutional Investor","基金","合格境内机构投资者，可投资海外市场的基金。"],
+  ["FOF","Fund of Funds","基金","投资于其他基金的基金。"],
+  ["跟踪误差","Tracking Error","基金","指数基金收益与指数收益的偏离程度。"],
+  ["溢价率","Premium","基金","场内价格高于基金净值的比例。"],
+  ["定投","Dollar-Cost Averaging","基金","定期定额投资。"],
+  ["宽基指数","Broad-based Index","基金","覆盖多个行业的市场代表性指数，如沪深 300。"],
+  ["Smart Beta","Smart Beta","基金","按特定因子（价值、红利、低波等）加权的策略指数。"],
+  ["再平衡","Rebalancing","配置","把偏离的资产比例调回目标比例。"],
+  ["资产配置","Asset Allocation","配置","决定各类资产在组合中的比例。"],
+  ["风险平价","Risk Parity","配置","让各类资产对组合风险的贡献相等的配置方法。"],
+  ["有效前沿","Efficient Frontier","配置","在给定风险下收益最高的组合集合。"],
+  ["因子","Factor","配置","能解释资产收益差异的共同特征，如市值、价值、动量、质量。"],
+  ["债券","Bond","债券","借款凭证，发行人承诺按期付息还本。"],
+  ["票面利率","Coupon Rate","债券","债券发行时约定的年利率。"],
+  ["到期收益率","Yield to Maturity (YTM)","债券","持有债券至到期的年化收益率。"],
+  ["久期","Duration","债券","衡量债券价格对利率变化的敏感度。"],
+  ["凸性","Convexity","债券","久期随利率变化的程度，是对久期的修正。"],
+  ["收益率曲线","Yield Curve","债券","不同期限债券收益率连成的曲线。"],
+  ["信用利差","Credit Spread","债券","信用债收益率与同期限国债收益率的差。"],
+  ["违约","Default","债券","债务人未能按期还本付息。"],
+  ["可转债","Convertible Bond","债券","可按约定价格转换为股票的债券。"],
+  ["国债逆回购","Reverse Repo","债券","把钱短期借出、以国债作抵押，风险极低的短期理财方式。"],
+  ["期货","Futures","衍生品","约定在未来以特定价格买卖标的的标准化合约。"],
+  ["期权","Option","衍生品","在未来以约定价格买入（看涨）或卖出（看跌）标的的权利。"],
+  ["行权价","Strike Price","衍生品","期权约定的买卖价格。"],
+  ["权利金","Premium","衍生品","期权买方支付给卖方的价格。"],
+  ["保证金","Margin","衍生品","交易期货等衍生品时需要存入的担保资金。"],
+  ["对冲","Hedging","衍生品","通过反向头寸降低风险。"],
+  ["K 线","Candlestick","技术","用开盘、收盘、最高、最低价表示价格走势的图形。"],
+  ["均线","Moving Average","技术","一段时间内收盘价的平均值连线。"],
+  ["支撑位 / 阻力位","Support / Resistance","技术","价格下跌时可能止跌 / 上涨时可能受阻的价位。"],
+  ["止损","Stop Loss","技术","预先设定的退出价位，用于限制亏损。"],
+  ["牛市 / 熊市","Bull / Bear Market","基础","持续上涨 / 持续下跌的市场。通常以从低点上涨或从高点下跌 20% 作为界定。"],
+  ["无风险利率","Risk-free Rate","基础","几乎没有违约风险的投资收益率，通常用国债收益率代表。"],
+  ["机会成本","Opportunity Cost","基础","选择某项投资而放弃的其他最佳选择的收益。"],
+  ["个人养老金","Private Pension","基础","国家制度下的个人养老账户，每年最多缴纳 12,000 元并享受税收优惠。"],
+];
+const box = document.getElementById("terms"), q = document.getElementById("q"), count = document.getElementById("count");
+function render() {
+  const k = q.value.trim().toLowerCase();
+  const list = TERMS.filter(t => !k || t.join(" ").toLowerCase().includes(k));
+  count.textContent = `共 ${list.length} 个术语`;
+  box.innerHTML = list.map(([zh, en, tag, d]) => `<div class="term"><span class="tag">${tag}</span><b>${zh}</b><span class="en">${en}</span><p>${d}</p></div>`).join("");
+}
+q.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>

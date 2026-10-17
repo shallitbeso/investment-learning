@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>投资入门学习手册</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="home">
+<div class="layout" style="grid-template-columns: 1fr;">
+<main>
+  <section class="hero content" style="max-width: 860px;">
+    <div class="chapter-label">写给完全零基础的你</div>
+    <h1>投资入门学习手册</h1>
+    <p class="lead">这是一套从零开始、一直延伸到中级水平的投资知识课程。它不会教你"快速致富"，而是帮你建立正确的认知框架：先管好钱，再理解风险，最后用简单、可靠的方法让钱慢慢增值。</p>
+
+    <div id="progressBox">
+      <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-2)">
+        <span>学习进度</span><span id="progressText">0 / 22 章</span>
+      </div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+
+    <div class="callout info" style="margin-top:24px">
+      <span class="title">建议的学习方式</span>
+      <ul>
+        <li><strong>按顺序读</strong>：前两章是地基，跳过它们直接学股票，就像没学加减法就学微积分。</li>
+        <li><strong>每天一章</strong>：入门篇约 2 周可以学完；进阶篇和实战篇内容更深，建议放慢到每 2–3 天一章。每章读完后做一做文末小测验。</li>
+        <li><strong>边学边算</strong>：打开 <a href="工具-投资计算器.html">互动计算器</a>，把书里的例子换成你自己的数字。</li>
+        <li><strong>先模拟，后实盘</strong>：学完前不必急着投钱。真正开始时，从你"亏光也不影响生活"的小金额起步。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="content" style="max-width: 1100px;">
+    <h2 style="margin-top:16px">入门篇 · 从零到能独立投资</h2>
+    <div class="chapter-list" id="list-入门"></div>
+    <h2>进阶篇 · 向中级投资者过渡</h2>
+    <p style="color:var(--text-2)">建议学完入门篇、并有至少半年实际投资经验后再读。这部分会涉及一些公式和模型，但都配有通俗解释和例子。</p>
+    <div class="chapter-list" id="list-进阶"></div>
+    <h2>实战篇 · 三份真实财报精读</h2>
+    <p style="color:var(--text-2)">A 股、港股、美股各选一家财报质量高、信息披露规范的公司，原文 PDF 已下载到 <code>财报原文/</code> 文件夹。建议先学完第 04 章和第 11 章再读。</p>
+    <div class="chapter-list" id="list-实战"></div>
+    <h2>工具</h2>
+    <div class="chapter-list" id="list-工具"></div>
+
+    <h2>学习路线一览</h2>
+    <div class="table-wrap"><table>
+      <tr><th>阶段</th><th>章节</th><th>学完后你能做到</th></tr>
+      <tr><td>① 打地基</td><td>01 投资前的准备 · 02 核心概念</td><td>知道自己有多少钱可以投、能承受多大亏损、为什么要投资</td></tr>
+      <tr><td>② 认识工具</td><td>03 投资品种 · 04 股票 · 05 基金</td><td>分清各种产品的风险和收益，看懂基金和股票的基本信息</td></tr>
+      <tr><td>③ 构建方法</td><td>06 资产配置 · 07 投资心理</td><td>设计适合自己的投资组合，并知道如何坚持下去</td></tr>
+      <tr><td>④ 保护自己</td><td>08 防骗与风险警示</td><td>一眼识别常见投资骗局</td></tr>
+      <tr><td>⑤ 开始行动</td><td>09 实操指南 · 10 术语表</td><td>完成开户并按计划进行第一笔投资</td></tr>
+      <tr><td>⑥ 深入分析</td><td>11 财报 · 12 估值 · 13 宏观</td><td>独立分析一家公司的质量和价值，理解宏观环境对市场的影响</td></tr>
+      <tr><td>⑦ 拓展工具</td><td>14 债券 · 15 组合理论 · 16 衍生品</td><td>用量化思维构建组合，理解债券和衍生品的定价与风险</td></tr>
+      <tr><td>⑧ 实战练习</td><td>美的 · 腾讯 · 苹果 财报精读</td><td>能独立打开一份真实年报，找到关键数据并得出自己的判断</td></tr>
+      <tr><td>⑨ 形成体系</td><td>17 交易执行 · 18 投资体系 · 19 AI 辅助投资</td><td>拥有书面的投资规则、复盘机制和可持续的长期框架</td></tr>
+    </table></div>
+
+    <div class="callout warn">
+      <span class="title">免责声明</span>
+      <p>本手册仅用于学习投资基础知识，不构成任何投资建议。文中提到的产品类型、费率、规则以撰写时（2026 年）的一般情况为准，具体请以交易所、券商和基金公司的最新公告为准。投资有风险，所有决策请独立判断并自行承担结果。</p>
+    </div>
+  </section>
+</main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const done = getDone();
+  LEVELS.forEach(lv => {
+    document.getElementById("list-" + lv).innerHTML = CHAPTERS.filter(c => c.level === lv).map(c => `
+    <a class="chapter-card" href="${c.file}">
+      <span class="n">${c.id === "tools" ? "工具" : c.level === "实战" ? "实战 " + c.id : "第 " + c.id + " 章"}</span>
+      <h3>${c.title}</h3><p>${c.desc}</p>
+      ${done[c.id] ? '<span class="badge">✓ 已学完</span>' : ""}
+    </a>`).join("");
+  });
+  const chapters = CHAPTERS.filter(c => c.id !== "tools");
+  const n = chapters.filter(c => done[c.id]).length;
+  document.getElementById("progressText").textContent = `${n} / ${chapters.length} 章`;
+  document.getElementById("progressBar").style.width = (n / chapters.length * 100) + "%";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>资产配置与风险管理</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="06">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 06 章</div>
+  <h1>资产配置与风险管理</h1>
+  <p class="lead">研究表明，投资组合长期收益的波动，绝大部分可以由资产配置（股票、债券、现金等各占多少比例）来解释，而不是挑了哪只股票或何时买入。</p>
+  <div class="meta"><span class="pill">⏱ 约 40 分钟</span><span class="pill">难度 ★★☆</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#what">什么是资产配置</a></li>
+    <li><a href="#4money">家庭资金的四个账户</a></li>
+    <li><a href="#stockbond">股债比例怎么定</a></li>
+    <li><a href="#models">经典配置模型</a></li>
+    <li><a href="#core">核心-卫星策略</a></li>
+    <li><a href="#rebalance">再平衡</a></li>
+    <li><a href="#position">仓位管理</a></li>
+    <li><a href="#risks">需要管理的风险清单</a></li>
+    <li><a href="#example">配置示例</a></li>
+  </ol></nav>
+
+  <h2 id="what">1. 什么是资产配置</h2>
+  <p>资产配置就是决定把钱<strong>按什么比例</strong>分配到不同类型的资产中。它的核心逻辑是：不同资产在不同经济环境下表现不同，组合在一起可以"东边不亮西边亮"。</p>
+  <ul>
+    <li>经济繁荣时：股票通常表现好；</li>
+    <li>经济衰退、降息时：高等级债券通常表现好；</li>
+    <li>高通胀、地缘危机时：黄金、大宗商品可能表现好；</li>
+    <li>任何时候：现金提供流动性和"弹药"。</li>
+  </ul>
+
+  <h2 id="4money">2. 家庭资金的四个账户</h2>
+  <p>一个流行的简化框架是把家庭资金分成四个用途不同的"账户"（比例仅供参考，需根据个人情况调整）：</p>
+  <div class="table-wrap"><table>
+    <tr><th>账户</th><th>用途</th><th>参考比例</th><th>工具</th></tr>
+    <tr><td>💧 要花的钱</td><td>日常开销 + 应急金</td><td>3–6 个月生活费</td><td>活期、货币基金</td></tr>
+    <tr><td>🛡 保命的钱</td><td>应对重大疾病、意外</td><td>保费约年收入 5%–10%</td><td>保险</td></tr>
+    <tr><td>📈 生钱的钱</td><td>追求长期增值</td><td>剩余资金的一部分</td><td>股票基金、指数基金、股票</td></tr>
+    <tr><td>🏛 保本升值的钱</td><td>养老、教育等确定性需求</td><td>剩余资金的一部分</td><td>国债、定期存款、债券基金、养老金</td></tr>
+  </table></div>
+
+  <h2 id="stockbond">3. 股债比例怎么定</h2>
+  <p>对大多数人而言，最重要的配置决策就是<strong>股票类资产和债券类资产的比例</strong>。常见的经验法则：</p>
+  <div class="formula">股票类资产比例 ≈ 100 − 年龄（或 110 − 年龄）<small>例：30 岁 → 股票 70%–80%；50 岁 → 股票 50%–60%</small></div>
+  <p>这只是粗略起点。更应该结合：</p>
+  <ul>
+    <li><strong>投资期限</strong>：越长越能承担股票的波动；</li>
+    <li><strong>风险承受能力</strong>：回顾第 01 章的自测；</li>
+    <li><strong>收入稳定性</strong>：收入稳定的人（如公务员）相当于自身就持有"债券"，可适当多配股票；收入与股市高度相关的人（如券商从业者）应适当降低股票比例。</li>
+  </ul>
+  <h3>不同股债比例的历史表现（示意）</h3>
+  <div class="table-wrap"><table>
+    <tr><th>股 / 债</th><th>长期收益</th><th>最差年份可能亏损</th><th>适合</th></tr>
+    <tr><td>20 / 80</td><td>较低</td><td>较小（约 −5% 到 −10%）</td><td>保守型、临近用钱</td></tr>
+    <tr><td>50 / 50</td><td>中等</td><td>中等（约 −15% 到 −25%）</td><td>稳健型</td></tr>
+    <tr><td>80 / 20</td><td>较高</td><td>较大（约 −30% 到 −40%）</td><td>积极型、长期投资</td></tr>
+    <tr><td>100 / 0</td><td>最高</td><td>很大（可能超过 −50%）</td><td>极少数能承受的人</td></tr>
+  </table></div>
+  <p class="pill" style="display:inline-block">注：数据为基于全球主要市场历史的大致区间，未来不代表重复。</p>
+
+  <h2 id="models">4. 经典配置模型</h2>
+  <div class="grid">
+    <div class="card"><h4>股债 60/40</h4><p>60% 股票 + 40% 债券，最经典的平衡配置，简单易执行。</p></div>
+    <div class="card"><h4>永久组合</h4><p>哈利·布朗提出：股票、长期国债、黄金、现金各 25%，力求在任何经济环境下都不大亏。</p></div>
+    <div class="card"><h4>全天候策略</h4><p>桥水基金提出的思路，按风险贡献而非资金比例分配（大量债券 + 股票 + 黄金 + 商品），第 15 章详解"风险平价"。</p></div>
+    <div class="card"><h4>耶鲁模式</h4><p>大量配置另类资产（私募股权、对冲基金、不动产），普通人难以复制，但"多元化"思想值得借鉴。</p></div>
+    <div class="card"><h4>目标日期</h4><p>随年龄增长自动降低股票比例的"下滑曲线"，养老目标日期基金即采用此方法。</p></div>
+  </div>
+
+  <h2 id="core">5. 核心-卫星策略</h2>
+  <p>如果你既想要稳健，又想尝试自己选股或押注某些行业，可以使用核心-卫星策略：</p>
+  <ul>
+    <li><strong>核心（70%–90%）</strong>：低成本宽基指数基金 + 债券基金，长期持有，决定组合的基本收益；</li>
+    <li><strong>卫星（10%–30%）</strong>：行业基金、主动基金、个股等，追求超额收益，即使失败也不影响大局。</li>
+  </ul>
+  <div class="callout tip"><span class="title">好处</span><p>既满足了"想要折腾"的心理，又把犯错的代价限制在可控范围内。很多人发现几年后卫星部分的收益反而不如核心部分，这本身就是一次宝贵的学习。</p></div>
+
+  <h2 id="rebalance">6. 再平衡</h2>
+  <p>市场涨跌会让你的配置比例偏离目标。例如你设定股债 60/40，股市大涨一年后可能变成 70/30，此时组合风险已经超过了你的设定。<strong>再平衡</strong>就是定期把比例调整回目标。</p>
+  <h3>两种再平衡方法</h3>
+  <ul>
+    <li><strong>定期再平衡</strong>：每半年或每年调整一次；</li>
+    <li><strong>阈值再平衡</strong>：某类资产偏离目标超过一定幅度（如 5 个百分点）时调整。</li>
+  </ul>
+  <div class="callout example">
+    <span class="title">再平衡的本质：自动"高抛低吸"</span>
+    <p>10 万元按 60/40 配置：股票 6 万、债券 4 万。一年后股票涨到 8 万，债券变为 4.2 万，总资产 12.2 万，股票占比 65.6%。再平衡：卖出约 0.68 万股票买入债券，恢复到股票 7.32 万、债券 4.88 万。如果第二年股市下跌，你已经提前"落袋"了一部分收益。</p>
+  </div>
+  <p>再平衡时优先用<strong>新增资金</strong>买入低配资产，这样可以减少卖出带来的费用。</p>
+
+  <h2 id="position">7. 仓位管理基本原则</h2>
+  <ol>
+    <li><strong>单一个股不超过总资产的 5%–10%</strong>；</li>
+    <li><strong>单一行业不超过股票资产的 20%–30%</strong>；</li>
+    <li><strong>不加杠杆</strong>：不借钱、不融资、不用信用卡套现投资；</li>
+    <li><strong>分批建仓</strong>：大额资金分多次投入，降低择时风险；</li>
+    <li><strong>保留现金</strong>：永远留有一部分现金，既是安全垫，也是下跌时的机会资金。</li>
+  </ol>
+  <p>进阶的仓位计算方法（如凯利公式、固定风险比例法）见第 17 章。</p>
+
+  <h2 id="risks">8. 投资者需要管理的风险清单</h2>
+  <div class="table-wrap"><table>
+    <tr><th>风险</th><th>含义</th><th>应对</th></tr>
+    <tr><td>市场风险</td><td>整体市场下跌</td><td>资产配置、长期持有</td></tr>
+    <tr><td>个股风险</td><td>单一公司出问题</td><td>分散化、用指数基金</td></tr>
+    <tr><td>流动性风险</td><td>需要钱时卖不出或被迫低价卖</td><td>应急金、匹配资金期限</td></tr>
+    <tr><td>通胀风险</td><td>收益跑不赢物价</td><td>配置一定比例权益资产</td></tr>
+    <tr><td>利率风险</td><td>利率变化影响债券价格</td><td>控制债券久期（第 14 章）</td></tr>
+    <tr><td>信用风险</td><td>借款方违约</td><td>选择高信用等级、分散</td></tr>
+    <tr><td>汇率风险</td><td>海外资产因汇率波动缩水</td><td>了解即可，长期看影响相对有限</td></tr>
+    <tr><td>集中度风险</td><td>过度押注某一资产或行业</td><td>设置仓位上限</td></tr>
+    <tr><td>行为风险</td><td>自己的情绪导致错误决策</td><td>书面计划、自动化投资（第 07 章）</td></tr>
+    <tr><td>欺诈风险</td><td>遇到骗局</td><td>只用正规渠道（第 08 章）</td></tr>
+  </table></div>
+
+  <h2 id="example">9. 配置示例</h2>
+  <div class="callout example">
+    <span class="title">示例：28 岁，月收入 1.2 万，工作稳定，积极型</span>
+    <ul>
+      <li>应急金：4 万元，放货币基金；</li>
+      <li>保险：医保 + 百万医疗 + 意外险 + 定期寿险；</li>
+      <li>长期投资（股 75 / 债 25）：
+        <ul>
+          <li>沪深 300 / 中证 A500 指数基金 35%</li>
+          <li>中证 500 指数基金 10%</li>
+          <li>标普 500 / 全球指数 QDII 基金 20%</li>
+          <li>行业基金或个股（卫星）10%</li>
+          <li>纯债 / 短债基金 25%</li>
+        </ul>
+      </li>
+      <li>每月定投 3000 元，按上述比例分配；每年年底再平衡一次。</li>
+    </ul>
+  </div>
+  <div class="callout example">
+    <span class="title">示例：45 岁，有房贷，孩子将上大学，稳健型</span>
+    <ul>
+      <li>应急金：6 个月生活费；</li>
+      <li>3 年后的学费：放在定期存款 / 国债 / 短债基金，不进股市；</li>
+      <li>养老长期投资（股 45 / 债 50 / 黄金 5）：宽基指数 + 红利指数 + 纯债基金 + 黄金 ETF；</li>
+      <li>开通个人养老金账户，每年存入 12,000 元享受税收优惠。</li>
+    </ul>
+  </div>
+  <p class="pill" style="display:inline-block">以上示例仅用于说明思路，不构成投资建议。</p>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：股市大涨后，你的股票比例从目标 60% 变成了 75%，应该怎么做？</div>
+    <details><summary>查看答案</summary><p>进行再平衡：卖出部分股票资产买入债券，或者用新增资金只买债券，把比例拉回 60%。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：为什么在券商工作的人应该适当降低股票配置？</div>
+    <details><summary>查看答案</summary><p>因为他的收入与股市高度相关。熊市时可能同时面临收入下降和投资亏损，风险叠加。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

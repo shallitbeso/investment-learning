@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用 AI 工具辅助投资</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+<style>
+  .prompt { position: relative; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: var(--radius); padding: 14px 18px; margin: 14px 0 20px; }
+  .prompt .label { font-size: 13px; font-weight: 650; color: var(--blue); margin-bottom: 6px; padding-right: 64px; }
+  .prompt pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size: 15px; line-height: 1.75; }
+  .copy-btn { position: absolute; top: 10px; right: 12px; font: inherit; font-size: 13px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-2); color: var(--text); cursor: pointer; }
+  .copy-btn:hover { border-color: var(--blue); }
+  pre.code { background: var(--surface-2); border-radius: var(--radius); padding: 14px 16px; overflow-x: auto; font-size: 13.5px; line-height: 1.6; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body data-page="19">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 19 章 · 进阶篇</div>
+  <h1>用 AI 工具辅助投资</h1>
+  <p class="lead">AI 大模型可以在几分钟内读完一份 300 页的年报、帮你写财务模型、扮演"反方辩手"挑战你的观点。但它也会一本正经地编造数字，并且不会替你承担亏损。这一章教你把 AI 当成<strong>勤奋但需要被检查的研究助理</strong>，而不是"荐股大师"。</p>
+  <div class="meta"><span class="pill">⏱ 约 50 分钟</span><span class="pill">难度 ★★★</span><span class="pill">含可复制的提示词模板</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#role">AI 的正确定位</a></li>
+    <li><a href="#can">AI 擅长与不擅长什么</a></li>
+    <li><a href="#tools">工具类型与选择</a></li>
+    <li><a href="#prompt">写好投资类提示词的原则</a></li>
+    <li><a href="#report">工作流 1：读财报</a></li>
+    <li><a href="#research">工作流 2：研究一家公司或行业</a></li>
+    <li><a href="#devil">工作流 3：反方辩手与决策检查</a></li>
+    <li><a href="#code">工作流 4：用 AI 写代码分析数据</a></li>
+    <li><a href="#learn">工作流 5：私人投资导师</a></li>
+    <li><a href="#review">工作流 6：复盘与投资日志</a></li>
+    <li><a href="#verify">如何验证 AI 的输出</a></li>
+    <li><a href="#risks">风险与红线</a></li>
+  </ol></nav>
+
+  <h2 id="role">1. AI 的正确定位</h2>
+  <div class="grid">
+    <div class="card"><h4>✅ 研究助理</h4><p>帮你找资料、读长文档、整理数据、算指标、写代码、列出你没想到的问题。</p></div>
+    <div class="card"><h4>✅ 陪练与导师</h4><p>解释概念、出题考你、挑战你的投资逻辑、检查你的思维漏洞。</p></div>
+    <div class="card"><h4>❌ 不是预言家</h4><p>它无法预测股价。任何"AI 预测明天涨停"的说法都不可信。</p></div>
+    <div class="card"><h4>❌ 不是决策者</h4><p>它不了解你的全部财务状况，也不承担后果。最终决定和责任永远在你。</p></div>
+  </div>
+  <div class="callout info"><span class="title">一个好用的心智模型</span><p>把 AI 想象成一位<strong>刚入职、读书极快、知识面很广，但偶尔会记错数字、并且有点爱迎合老板</strong>的分析师实习生。你会让他写初稿、整理资料，但重要的数字你一定会自己核对，重要的结论你一定会追问"依据是什么"。</p></div>
+
+  <h2 id="can">2. AI 擅长与不擅长什么</h2>
+  <div class="table-wrap"><table>
+    <tr><th>任务</th><th>AI 表现</th><th>说明</th></tr>
+    <tr><td>解释概念、举例子</td><td>🟢 很强</td><td>适合学习本手册时随时提问</td></tr>
+    <tr><td>阅读和总结长文档（年报、招股书、电话会纪要）</td><td>🟢 很强</td><td>前提是<strong>你把原文提供给它</strong>，而不是让它凭记忆回答</td></tr>
+    <tr><td>写 Excel 公式、Python 代码</td><td>🟢 很强</td><td>代码可以运行验证，错误容易被发现</td></tr>
+    <tr><td>列出风险、反方观点、检查清单</td><td>🟢 很强</td><td>弥补人的确认偏误</td></tr>
+    <tr><td>多文档对比（如三家公司、多年年报）</td><td>🟡 较强</td><td>文档越多，越容易张冠李戴，需要分步做</td></tr>
+    <tr><td>从记忆中引用具体财务数字</td><td>🔴 不可靠</td><td>经常"幻觉"——编造看似合理的数字</td></tr>
+    <tr><td>最新信息（股价、刚发布的财报、新政策）</td><td>🔴 取决于是否联网</td><td>模型有知识截止日期，不联网时它不知道最近发生的事</td></tr>
+    <tr><td>心算、多步计算</td><td>🟡 不稳定</td><td>让它写出计算过程，或用代码 / 表格计算</td></tr>
+    <tr><td>预测股价、判断买卖时机</td><td>🔴 无能力</td><td>没有任何工具能稳定做到</td></tr>
+  </table></div>
+  <div class="callout danger">
+    <span class="title">最常见的坑：数字幻觉</span>
+    <p>你问"美的 2025 年经营现金流是多少"，一个没有联网、也没有拿到年报的 AI 可能会给出一个精确到小数点的数字——而它完全是编的。<strong>规则：凡是要用于决策的数字，必须来自你能打开、能核对页码的原始文件。</strong></p>
+  </div>
+
+  <h2 id="tools">3. 工具类型与选择</h2>
+  <div class="table-wrap"><table>
+    <tr><th>类型</th><th>例子</th><th>适合做什么</th></tr>
+    <tr><td>通用对话助手</td><td>Claude、ChatGPT、Gemini、DeepSeek、Kimi、豆包、通义千问等</td><td>学习、读你上传的财报 PDF、头脑风暴、写提示词</td></tr>
+    <tr><td>带联网搜索的助手</td><td>上述多数产品的"联网 / 搜索"模式</td><td>查最新新闻、政策；<strong>要求它给出来源链接</strong>并点开核对</td></tr>
+    <tr><td>编程 / 数据分析智能体</td><td>Claude Code、各类 AI 编程助手，或助手内置的"代码执行 / 数据分析"功能</td><td>下载数据、批量计算指标、回测、画图——结果可复现</td></tr>
+    <tr><td>券商 / 金融 App 内置 AI</td><td>部分券商和行情软件提供的智能问答</td><td>快速查行情和公告；注意它可能有<strong>销售导向</strong></td></tr>
+    <tr><td>表格中的 AI</td><td>Excel / WPS 等的 AI 功能</td><td>写公式、整理财务数据、生成图表</td></tr>
+  </table></div>
+  <p>选择时关注三点：① 能否<strong>上传长文档</strong>（年报动辄几百页）；② 能否<strong>联网并给出处</strong>；③ 能否<strong>执行代码</strong>（让计算可验证）。不同工具的能力和价格变化很快，以各产品官方说明为准。</p>
+  <div class="callout warn"><span class="title">隐私</span><p>不要把<strong>证券账户密码、身份证号、银行卡号、验证码</strong>发给任何 AI。如果要让 AI 分析你的持仓，可以只提供"资产类别 + 比例"，去掉能识别你身份的信息。</p></div>
+
+  <h2 id="prompt">4. 写好投资类提示词的原则</h2>
+  <ol>
+    <li><strong>给原文，不要让它凭记忆</strong>：上传年报 PDF 或粘贴相关段落；</li>
+    <li><strong>说明你的身份和目的</strong>："我是学了一年的个人投资者，想判断这家公司的利润质量"；</li>
+    <li><strong>要求引用出处</strong>："每个数字都标明来自原文第几页、哪张表"；</li>
+    <li><strong>要求区分事实与推测</strong>："把原文写明的事实、你的推断、你不确定的地方分开写"；</li>
+    <li><strong>允许说"不知道"</strong>："如果原文没有，请直接说没有，不要估算"；</li>
+    <li><strong>分步提问</strong>：先提取数据 → 再计算 → 再分析，而不是一句话要结论；</li>
+    <li><strong>主动要求反面</strong>：AI 有迎合用户的倾向，你说"我觉得这公司很好"，它往往会顺着你说。要明确要求它批评。</li>
+  </ol>
+  <div class="table-wrap"><table>
+    <tr><th>❌ 差的提问</th><th>✅ 好的提问</th></tr>
+    <tr><td>腾讯值得买吗？</td><td>根据我上传的腾讯 2025 年业绩公告，列出 IFRS 与非 IFRS 利润的全部调整项和金额，并标明页码。哪些调整你认为合理，哪些值得怀疑？</td></tr>
+    <tr><td>美的财务怎么样？</td><td>用第 11 章的利润质量清单（附后），逐项检查我上传的美的 2025 年报，每项给出数据、计算过程和原文页码。</td></tr>
+    <tr><td>帮我选几只好股票</td><td>我想用"ROE 连续 5 年大于 15%、资产负债率小于 60%、经营现金流/净利润大于 1"来筛选 A 股，请帮我写一段 Python 代码，并说明数据从哪里获取。</td></tr>
+  </table></div>
+
+  <h2 id="report">5. 工作流 1：用 AI 读财报</h2>
+  <p>以实战篇的 <a href="财报原文/美的集团-2025年度报告.pdf">美的年报</a> 为例，建议分四步，每一步单独提问：</p>
+  <div class="prompt"><div class="label">第 1 步：建立全局认识</div><pre>我上传了一份上市公司年报。请先告诉我：
+1. 公司主营业务是什么，按收入列出业务构成（附页码）；
+2. 审计意见类型；
+3. 近三年的营业收入、归母净利润、扣非净利润、经营活动现金流净额、加权平均 ROE（做成表格，标明页码）。
+只使用原文中的数字，原文没有的写“未找到”，不要估算。</pre></div>
+  <div class="prompt"><div class="label">第 2 步：利润质量检查</div><pre>请用以下清单逐项检查这份年报，每项给出：原文数据、计算过程、页码、结论（通过/需关注/不通过）：
+1. 经营现金流 ÷ 净利润
+2. 扣非净利润 ÷ 归母净利润
+3. 应收账款增速 vs 营收增速
+4. 存货增速 vs 营收增速
+5. 自由现金流（经营现金流 − 购建长期资产支付的现金）
+6. 商誉 ÷ 归母净资产
+7. 有息负债合计与现金类资产合计（注意现金可能分布在多个科目）</pre></div>
+  <div class="prompt"><div class="label">第 3 步：追问异常</div><pre>资产负债表里有哪些科目同比变动超过 30%？对每一项：
+1. 列出期初、期末金额和页码；
+2. 在财务报表附注里找到对应说明，摘录原文；
+3. 说明这个变动是经营变化、会计分类变化，还是需要警惕的信号。</pre></div>
+  <div class="prompt"><div class="label">第 4 步：管理层说了什么、没说什么</div><pre>请总结“管理层讨论与分析”中对下一年的展望和主要风险。然后告诉我：
+有哪些重要问题（例如第四季度业绩变化、毛利率变化、海外风险）管理层没有正面解释？
+如果我是分析师，在业绩说明会上应该问哪 5 个问题？</pre></div>
+  <div class="callout example">
+    <span class="title">用实战篇检验 AI</span>
+    <p>我们在 <a href="财报精读-美的集团.html#bs">美的精读</a> 中指出了"货币资金下降 39%，但现金其实转成了长期存款"的陷阱。你可以测试一下：如果 AI 在第 2 步中只看"货币资金"就得出"现金大幅减少"的结论，说明它和新手一样犯了错——这时你要追问"请检查一年内到期的非流动资产和其他非流动资产的附注"。<strong>用你已经知道答案的问题去测试 AI，是判断它是否可靠的最好方法。</strong></p>
+  </div>
+
+  <h2 id="research">6. 工作流 2：研究一家公司或行业</h2>
+  <div class="prompt"><div class="label">商业模式与护城河</div><pre>我想研究【公司名】。请帮我整理一份研究框架（不需要给出买卖建议）：
+1. 它如何赚钱：收入来源、客户是谁、定价方式；
+2. 产业链位置：上游供应商和下游客户的议价能力；
+3. 竞争格局：主要竞争对手，以及各自的优势劣势；
+4. 护城河：属于品牌、网络效应、转换成本、成本优势、专利/牌照中的哪类，证据是什么；
+5. 我应该去哪些原始资料中验证上述判断（年报章节、行业协会数据、公司公告等）。
+请把你有把握的事实和需要我去核实的推断分开标注。</pre></div>
+  <div class="prompt"><div class="label">行业入门</div><pre>我对【行业】完全不了解。请像给新入职分析师培训一样介绍：
+1. 行业的基本经济学：需求驱动因素、成本结构、是否有周期性；
+2. 分析这个行业最关键的 5 个指标，以及它们为什么重要（参考：银行看净息差和不良率）；
+3. 这个行业公司最常见的财务风险和"雷"；
+4. 推荐我阅读哪些类型的原始资料。</pre></div>
+  <div class="callout warn"><span class="title">联网搜索时</span><p>要求它"<strong>每条信息附上来源链接和发布日期</strong>"，然后亲自点开至少关键的几条。AI 可能引用过时的文章、转述错误，或把自媒体观点当作事实。</p></div>
+
+  <h2 id="devil">7. 工作流 3：反方辩手与决策检查</h2>
+  <p>这是 AI 对个人投资者<strong>最有价值</strong>的用法之一：它能帮你对抗第 07 章讲的确认偏误。</p>
+  <div class="prompt"><div class="label">反方辩手（买入前必做）</div><pre>我打算买入【标的】，以下是我的理由：
+【写下你的 3–5 条买入理由】
+
+请扮演一位持有相反观点、非常专业的空头分析师：
+1. 逐条反驳我的理由，指出其中的逻辑漏洞或隐含假设；
+2. 列出我没有考虑到的 5 个最大风险；
+3. 描述一个“两年后这笔投资亏损 40%”的合理情景；
+4. 告诉我应该观察哪些指标，来尽早发现我错了。
+请不要客气，也不要在结尾安慰我。</pre></div>
+  <div class="prompt"><div class="label">事前验尸（Pre-mortem）</div><pre>假设现在是三年后，我按照下面的投资计划执行，结果非常糟糕。
+【粘贴你的投资计划或投资政策书】
+请列出最可能导致失败的原因，按可能性从高到低排序，并给出每一项的预防措施。</pre></div>
+  <div class="prompt"><div class="label">对照检查清单</div><pre>下面是我的买入前检查清单（第 18 章）和我对【标的】的研究笔记。
+请逐条判断：我的笔记是否真正回答了这一项？哪些项目我只是“觉得”通过了，但缺乏证据？
+【粘贴清单和笔记】</pre></div>
+
+  <h2 id="code">8. 工作流 4：用 AI 写代码分析数据</h2>
+  <p>当分析涉及大量数字时，<strong>让 AI 写代码、由代码去计算</strong>，比让 AI 直接给答案可靠得多：代码可以运行、可以检查、可以重复。不会编程也没关系，你可以直接要求 AI"一步步教我运行"。</p>
+  <h3>常见用途</h3>
+  <ul>
+    <li>批量下载多家公司多年的财务数据，计算 ROE、毛利率、现金流比率并画趋势图；</li>
+    <li>回测一个定投或再平衡策略（例如"沪深 300 + 国债，每年再平衡"在过去 15 年的表现）；</li>
+    <li>计算你自己持仓的 XIRR、波动率、最大回撤、夏普比率（第 15 章）；</li>
+    <li>按你的条件做股票或基金初筛。</li>
+  </ul>
+  <h3>常用的公开数据来源</h3>
+  <div class="table-wrap"><table>
+    <tr><th>来源</th><th>内容</th><th>说明</th></tr>
+    <tr><td>美国 SEC EDGAR API</td><td>美股公司的结构化财报数据</td><td>官方免费，例如 <code>data.sec.gov/api/xbrl/companyfacts/</code>，需设置 User-Agent</td></tr>
+    <tr><td>AkShare、Tushare 等开源库</td><td>A 股、港股、基金、宏观数据</td><td>社区维护，接口可能变化，需以其文档为准；Tushare 部分数据需注册积分</td></tr>
+    <tr><td>yfinance 等开源库</td><td>全球股票行情和基本财务数据</td><td>非官方接口，适合学习，不保证稳定</td></tr>
+    <tr><td>巨潮资讯、港交所披露易、交易所官网</td><td>公告和财报原文</td><td>最权威，用于核对</td></tr>
+    <tr><td>国家统计局、中国人民银行</td><td>宏观数据</td><td>官方</td></tr>
+  </table></div>
+  <div class="prompt"><div class="label">让 AI 写一个回测</div><pre>请用 Python 帮我写一个回测脚本，我是编程新手，请一步步告诉我如何安装和运行：
+- 资产：沪深 300 指数基金 和 一只国债指数基金（请告诉我可以用哪些数据源获取历史数据）
+- 策略 A：股债 60/40，每年末再平衡；策略 B：100% 沪深 300；每月定投 2000 元
+- 输出：两种策略的年化收益（XIRR）、最大回撤、波动率、夏普比率，以及净值曲线图
+- 在代码注释中说明每个假设（交易费用、分红再投资等）</pre></div>
+  <p>下面是一个可以直接运行的小例子：从美国 SEC 官方接口读取苹果公司历年的净利润（与 <a href="财报精读-苹果公司.html">苹果精读</a> 对照）：</p>
+<pre class="code">import requests
+
+# SEC 要求在请求头中写明你的名称和联系邮箱
+headers = {"User-Agent": "你的名字 your_email@example.com"}
+url = "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"  # 苹果的 CIK 编号
+facts = requests.get(url, headers=headers).json()
+
+for item in facts["facts"]["us-gaap"]["NetIncomeLoss"]["units"]["USD"]:
+    if item.get("form") == "10-K" and item.get("fp") == "FY" and item["end"][5:7] == "09":
+        print(item["end"], f'{item["val"] / 1e9:.1f} 十亿美元')</pre>
+  <p class="pill" style="display:inline-block">同一数值会在后续多份 10-K 中重复出现，所以输出会有重复行——这正好可以作为练习：让 AI 帮你去重并画成柱状图。</p>
+  <div class="callout tip"><span class="title">检查 AI 写的代码</span><ul>
+    <li>先用你<strong>已知答案</strong>的数据测试（例如苹果 FY2025 净利润应为约 1,120 亿美元）；</li>
+    <li>回测结果"好得不真实"时，追问是否存在<strong>未来函数</strong>（用了当时还不知道的数据）、<strong>幸存者偏差</strong>（只用了现在还存在的股票）、是否忽略了交易成本；</li>
+    <li>回测只说明过去，不保证未来。</li>
+  </ul></div>
+
+  <h2 id="learn">9. 工作流 5：私人投资导师</h2>
+  <p>学习本手册时，把 AI 当作一位随时在线的老师：</p>
+  <div class="prompt"><div class="label">用费曼学习法检验理解</div><pre>我刚学了“久期”这个概念。我先用自己的话解释一遍，请你像严格的老师一样指出我理解错误或不完整的地方，然后出 3 道由浅入深的计算题考我，等我作答后再批改：
+【写下你的解释】</pre></div>
+  <div class="prompt"><div class="label">用真实案例理解概念</div><pre>请用一个真实的历史案例解释“价值陷阱”：当时的估值数据看起来如何、投资者为什么觉得便宜、后来发生了什么。请注明案例的时间，并提醒我哪些细节需要自己去核实。</pre></div>
+  <div class="prompt"><div class="label">把术语翻译成人话</div><pre>下面是一段基金季报里的“投资策略和运作分析”，请：
+1. 用大白话解释它在说什么；
+2. 指出哪些是具体的操作，哪些只是空泛的套话；
+3. 对照基金的持仓变化，判断基金经理是否言行一致。
+【粘贴原文】</pre></div>
+
+  <h2 id="review">10. 工作流 6：复盘与投资日志</h2>
+  <div class="prompt"><div class="label">年度复盘</div><pre>下面是我过去一年的投资日志（日期、操作、理由、当时的情绪、结果）。请帮我：
+1. 按第 18 章的“决策好坏 × 结果好坏”四象限，对每笔重要决策分类；
+2. 找出我反复出现的行为偏差（如追涨、过早止盈、亏损时加仓等），并引用日志中的具体记录作为证据；
+3. 给出 3 条具体、可执行的改进建议，写成可以加入我投资政策书的规则。
+【粘贴日志，删除账户等隐私信息】</pre></div>
+  <div class="prompt"><div class="label">起草投资政策书</div><pre>请通过提问的方式帮我起草一份个人投资政策书（IPS）。每次只问我 1–2 个问题，涵盖：目标、期限、流动性需求、风险承受能力、资产配置、禁止事项、再平衡规则、复盘机制。全部问完后，按第 18 章的模板整理成文。</pre></div>
+
+  <h2 id="verify">11. 如何验证 AI 的输出</h2>
+  <ul class="checklist">
+    <li><input type="checkbox" id="v1" data-key="ai1"><label for="v1"><strong>数字有出处</strong>：每个关键数字都能在原始文件中按页码找到</label></li>
+    <li><input type="checkbox" id="v2" data-key="ai2"><label for="v2"><strong>抽查计算</strong>：至少自己重算 1–2 个比率（或用代码 / 表格算）</label></li>
+    <li><input type="checkbox" id="v3" data-key="ai3"><label for="v3"><strong>口径一致</strong>：营业收入还是营业总收入？IFRS 还是非 IFRS？归母还是含少数股东？</label></li>
+    <li><input type="checkbox" id="v4" data-key="ai4"><label for="v4"><strong>时间正确</strong>：是哪个报告期、哪个财年的数据？信息是否已过时？</label></li>
+    <li><input type="checkbox" id="v5" data-key="ai5"><label for="v5"><strong>链接可打开</strong>：联网搜索给出的来源真实存在，内容与转述一致</label></li>
+    <li><input type="checkbox" id="v6" data-key="ai6"><label for="v6"><strong>交叉验证</strong>：重要结论换一个 AI 工具或换一种问法再问一次，看是否一致</label></li>
+    <li><input type="checkbox" id="v7" data-key="ai7"><label for="v7"><strong>反向测试</strong>：让它论证相反的结论，看哪一边的证据更扎实</label></li>
+    <li><input type="checkbox" id="v8" data-key="ai8"><label for="v8"><strong>我能复述</strong>：不看 AI 的回答，我能用自己的话讲清楚这个结论和依据</label></li>
+  </ul>
+
+  <h2 id="risks">12. 风险与红线</h2>
+  <div class="callout danger">
+    <span class="title">警惕打着 AI 旗号的骗局</span>
+    <p>"AI 量化选股""AI 智能投顾保证收益""ChatGPT 炒股机器人月入 30%"……这些是第 08 章荐股群和虚假平台骗局的新包装。<strong>任何承诺收益、要求转账到个人账户、需要下载非官方 App 的"AI 投资"都是骗局。</strong>正规机构的智能投顾不会承诺保本保收益。</p>
+  </div>
+  <div class="table-wrap"><table>
+    <tr><th>风险</th><th>表现</th><th>应对</th></tr>
+    <tr><td>幻觉</td><td>编造数字、事件、引文</td><td>只信能核对出处的数字</td></tr>
+    <tr><td>迎合</td><td>顺着你的观点说，放大确认偏误</td><td>明确要求批评；让它扮演反方</td></tr>
+    <tr><td>过时</td><td>使用知识截止日前的旧信息</td><td>提供最新原文，或使用联网模式并核对日期</td></tr>
+    <tr><td>虚假的确定感</td><td>语气笃定、格式漂亮，让人误以为分析很严谨</td><td>形式不等于质量；追问"依据是什么"</td></tr>
+    <tr><td>过度交易</td><td>AI 让获取信息变得太容易，诱发频繁操作</td><td>研究可以多做，交易仍按计划执行</td></tr>
+    <tr><td>同质化</td><td>大家问同样的 AI，得到相似的结论</td><td>真正的优势来自独特的视角、耐心和纪律</td></tr>
+    <tr><td>隐私泄露</td><td>上传账户信息、身份信息</td><td>脱敏后再提供</td></tr>
+  </table></div>
+  <div class="callout tip">
+    <span class="title">总结</span>
+    <p>AI 能大大缩短"收集信息和做计算"的时间，让个人投资者也能做过去只有专业分析师才有精力做的研究。但投资中最难的部分——<strong>判断什么重要、在恐慌时坚持计划、承认自己的能力圈边界</strong>——仍然只能靠你自己。用 AI 提高研究的深度，而不是提高交易的频率。</p>
+  </div>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：你问 AI"某公司去年的毛利率是多少"，它立刻给出了"38.27%"。你应该怎么做？</div>
+    <details><summary>查看答案</summary><p>不要直接使用。追问出处（哪份文件、第几页），或者把年报上传给它重新提取，并自己用营业收入和营业成本复算一次。没有联网也没有原文的 AI，给出的精确数字很可能是编造的。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：你告诉 AI"我觉得这家公司被严重低估了，你同意吗？"，它表示同意并给出了五条理由。这个结论可靠吗？</div>
+    <details><summary>查看答案</summary><p>不可靠。这种提问方式会诱发 AI 的迎合倾向。更好的做法是不暴露自己的观点，让它分别列出看多和看空的论据；或者直接让它扮演空头反驳你。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q3：一个微信群宣传"自研 AI 量化系统，年化收益 80%，最低 5 万元起投，转账到指定账户"。这是什么？</div>
+    <details><summary>查看答案</summary><p>骗局。承诺高收益、要求转账到指定账户，都是第 08 章的典型危险信号，"AI"只是新的包装。</p></details>
+  </div>
+</article></main>
+</div>
+<script>
+document.querySelectorAll(".prompt").forEach(box => {
+  const btn = document.createElement("button");
+  btn.className = "copy-btn"; btn.textContent = "复制";
+  btn.onclick = async () => {
+    const text = box.querySelector("pre").innerText;
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) {
+      const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); } catch (e2) {} t.remove();
+    }
+    btn.textContent = "已复制"; setTimeout(() => btn.textContent = "复制", 1500);
+  };
+  box.appendChild(btn);
+});
+</script>
+</body>
+</html>

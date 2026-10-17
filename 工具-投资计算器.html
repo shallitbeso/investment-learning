@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>投资计算器</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+<style>
+  .viz-root { --series-1: #2a78d6; --series-2: #eb6834; --grid: #e7e5df; --axis: #8a8880; }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root { --series-1: #3987e5; --series-2: #d95926; --grid: #2f3237; --axis: #8b919b; }
+  }
+  :root[data-theme="dark"] .viz-root { --series-1: #3987e5; --series-2: #d95926; --grid: #2f3237; --axis: #8b919b; }
+  .chart-wrap { position: relative; margin-top: 16px; }
+  .chart-wrap svg { width: 100%; height: 240px; display: block; overflow: visible; }
+  .legend { display: flex; gap: 16px; font-size: 13px; color: var(--text-2); margin-top: 14px; }
+  .legend i { display: inline-block; width: 12px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+  .tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 13px; line-height: 1.6; box-shadow: 0 4px 16px rgba(0,0,0,.12); display: none; white-space: nowrap; color: var(--text); }
+  .tip .k { color: var(--text-2); }
+  .calc h3 { margin-top: 0; }
+  .note { font-size: 13.5px; color: var(--text-2); margin-top: 12px; }
+  details.table-view { margin-top: 10px; font-size: 14px; }
+  details.table-view summary { cursor: pointer; color: var(--blue); }
+</style>
+</head>
+<body data-page="tools">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content viz-root">
+  <div class="chapter-label">工具</div>
+  <h1>投资计算器</h1>
+  <p class="lead">把书里的公式换成你自己的数字。所有计算都在你的浏览器本地完成，不会上传任何数据。</p>
+
+  <nav class="toc"><strong>计算器</strong><ol>
+    <li><a href="#dca">复利与定投</a></li>
+    <li><a href="#inflation">通胀购买力</a></li>
+    <li><a href="#recover">亏损回本</a></li>
+    <li><a href="#fee">费率的长期影响</a></li>
+    <li><a href="#dcf">简化 DCF 估值</a></li>
+    <li><a href="#retire">退休目标</a></li>
+  </ol></nav>
+
+  <!-- 1. 复利与定投 -->
+  <h2 id="dca">1. 复利与定投</h2>
+  <div class="calc" id="c1">
+    <div class="fields">
+      <label>初始本金（元）<input type="number" id="c1p" value="10000" min="0"></label>
+      <label>每月定投（元）<input type="number" id="c1m" value="1000" min="0"></label>
+      <label>预期年化收益率（%）<input type="number" id="c1r" value="7" step="0.5"></label>
+      <label>投资年数<input type="number" id="c1y" value="20" min="1" max="60"></label>
+    </div>
+    <div class="result" id="c1out"></div>
+    <div class="legend"><span><i style="background:var(--series-1)"></i>账户市值</span><span><i style="background:var(--series-2)"></i>累计投入本金</span></div>
+    <div class="chart-wrap" id="c1chart"></div>
+    <details class="table-view"><summary>查看逐年数据表</summary><div class="table-wrap" id="c1table"></div></details>
+    <p class="note">按月复利计算，假设收益率每年恒定。真实市场的收益是波动的，这只是帮助理解复利的示意。</p>
+  </div>
+
+  <!-- 2. 通胀 -->
+  <h2 id="inflation">2. 通胀购买力</h2>
+  <div class="calc">
+    <div class="fields">
+      <label>今天的金额（元）<input type="number" id="c2a" value="100000"></label>
+      <label>年通胀率（%）<input type="number" id="c2i" value="2.5" step="0.1"></label>
+      <label>年数<input type="number" id="c2y" value="20"></label>
+    </div>
+    <div class="result" id="c2out"></div>
+  </div>
+
+  <!-- 3. 回本 -->
+  <h2 id="recover">3. 亏损回本</h2>
+  <div class="calc">
+    <div class="fields">
+      <label>亏损幅度（%）<input type="number" id="c3l" value="30" min="0" max="99"></label>
+      <label>之后的年化收益率（%）<input type="number" id="c3r" value="8" step="0.5"></label>
+    </div>
+    <div class="result" id="c3out"></div>
+  </div>
+
+  <!-- 4. 费率 -->
+  <h2 id="fee">4. 费率的长期影响</h2>
+  <div class="calc">
+    <div class="fields">
+      <label>投入金额（元）<input type="number" id="c4a" value="100000"></label>
+      <label>毛收益率（%）<input type="number" id="c4r" value="8" step="0.5"></label>
+      <label>费率 A（%/年）<input type="number" id="c4f1" value="0.2" step="0.05"></label>
+      <label>费率 B（%/年）<input type="number" id="c4f2" value="1.5" step="0.05"></label>
+      <label>年数<input type="number" id="c4y" value="30"></label>
+    </div>
+    <div class="result" id="c4out"></div>
+  </div>
+
+  <!-- 5. DCF -->
+  <h2 id="dcf">5. 简化 DCF 估值（两阶段）</h2>
+  <div class="calc">
+    <div class="fields">
+      <label>当前自由现金流（亿元）<input type="number" id="c5f" value="10" step="0.1"></label>
+      <label>预测期增长率（%）<input type="number" id="c5g" value="10" step="0.5"></label>
+      <label>预测期年数<input type="number" id="c5n" value="5" min="1" max="20"></label>
+      <label>永续增长率（%）<input type="number" id="c5tg" value="3" step="0.5"></label>
+      <label>折现率（%）<input type="number" id="c5r" value="9" step="0.5"></label>
+      <label>净现金（亿元，负债为负）<input type="number" id="c5c" value="20"></label>
+      <label>总股本（亿股）<input type="number" id="c5s" value="10" step="0.1"></label>
+      <label>当前股价（元，可选）<input type="number" id="c5p" value="" placeholder="用于计算安全边际"></label>
+    </div>
+    <div class="result" id="c5out"></div>
+    <p class="note">与第 12 章示例的默认参数相同。试着把折现率或永续增长率改动 1 个百分点，感受结果有多敏感。</p>
+  </div>
+
+  <!-- 6. 退休 -->
+  <h2 id="retire">6. 退休目标</h2>
+  <div class="calc">
+    <div class="fields">
+      <label>退休后每年开支（元，今天的购买力）<input type="number" id="c6e" value="120000"></label>
+      <label>安全提取率（%）<input type="number" id="c6w" value="3.5" step="0.1"></label>
+      <label>距离退休年数<input type="number" id="c6y" value="25"></label>
+      <label>年通胀率（%）<input type="number" id="c6i" value="2.5" step="0.1"></label>
+      <label>现有投资资产（元）<input type="number" id="c6a" value="200000"></label>
+      <label>预期年化收益率（%）<input type="number" id="c6r" value="6" step="0.5"></label>
+    </div>
+    <div class="result" id="c6out"></div>
+    <p class="note">基于第 18 章的"提取率"框架：所需资产 ≈ 年开支 ÷ 提取率。结果是粗略的规划参考。</p>
+  </div>
+</article></main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const num = id => parseFloat($(id).value) || 0;
+const fmt = v => {
+  const a = Math.abs(v);
+  if (a >= 1e8) return (v / 1e8).toFixed(2) + " 亿";
+  if (a >= 1e4) return +(v / 1e4).toFixed(2) + " 万";
+  return v.toFixed(0);
+};
+const stat = (label, value) => `<div class="stat"><small>${label}</small><b>${value}</b></div>`;
+
+// 两条线的图表：带十字准线与悬停提示
+function lineChart(el, rows) {
+  const W = el.clientWidth || 640, H = 240, pl = 56, pr = 16, pt = 10, pb = 26;
+  const raw = Math.max(...rows.map(r => r.v)) / 4 || 1, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const maxY = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => s >= raw) * 4;
+  const x = i => pl + (W - pl - pr) * i / (rows.length - 1);
+  const y = v => pt + (H - pt - pb) * (1 - v / maxY);
+  const ticks = [0, .25, .5, .75, 1].map(t => maxY * t);
+  const path = k => rows.map((r, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(r[k]).toFixed(1)}`).join("");
+  const area = path("v") + `L${x(rows.length - 1)},${y(0)}L${x(0)},${y(0)}Z`;
+  const step = Math.ceil(rows.length / 8);
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="账户市值与累计投入随年份变化">
+    ${ticks.map(t => `<line x1="${pl}" x2="${W - pr}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)" stroke-width="1"/>
+      <text x="${pl - 8}" y="${y(t) + 4}" text-anchor="end" font-size="11" fill="var(--text-2)">${fmt(t)}</text>`).join("")}
+    ${rows.map((r, i) => (i % step === 0 && rows.length - 1 - i >= step / 2) || i === rows.length - 1 ?`<text x="${x(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--text-2)">${r.year}年</text>` : "").join("")}
+    <path d="${area}" fill="var(--series-1)" opacity=".12"/>
+    <path d="${path("p")}" fill="none" stroke="var(--series-2)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="${path("v")}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round"/>
+    <line id="xh" y1="${pt}" y2="${H - pb}" stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3" visibility="hidden"/>
+    <circle id="d1" r="4" fill="var(--series-1)" stroke="var(--surface)" stroke-width="2" visibility="hidden"/>
+    <circle id="d2" r="4" fill="var(--series-2)" stroke="var(--surface)" stroke-width="2" visibility="hidden"/>
+    <rect x="${pl}" y="${pt}" width="${W - pl - pr}" height="${H - pt - pb}" fill="transparent" id="hit"/>
+  </svg><div class="tip" id="tip"></div>`;
+  const svg = el.querySelector("svg"), tip = el.querySelector("#tip");
+  const show = e => {
+    const rect = svg.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * W / rect.width;
+    const i = Math.max(0, Math.min(rows.length - 1, Math.round((mx - pl) / (W - pl - pr) * (rows.length - 1))));
+    const r = rows[i];
+    ["xh", "d1", "d2"].forEach(id => svg.querySelector("#" + id).setAttribute("visibility", "visible"));
+    svg.querySelector("#xh").setAttribute("x1", x(i)); svg.querySelector("#xh").setAttribute("x2", x(i));
+    svg.querySelector("#d1").setAttribute("cx", x(i)); svg.querySelector("#d1").setAttribute("cy", y(r.v));
+    svg.querySelector("#d2").setAttribute("cx", x(i)); svg.querySelector("#d2").setAttribute("cy", y(r.p));
+    tip.style.display = "block";
+    tip.innerHTML = `<b>第 ${r.year} 年</b><br><span class="k">账户市值</span> ${fmt(r.v)} 元<br><span class="k">累计投入</span> ${fmt(r.p)} 元<br><span class="k">收益</span> ${fmt(r.v - r.p)} 元`;
+    const px = x(i) * rect.width / W;
+    tip.style.left = Math.min(px + 12, rect.width - tip.offsetWidth) + "px";
+    tip.style.top = "8px";
+  };
+  const hide = () => { tip.style.display = "none"; ["xh", "d1", "d2"].forEach(id => svg.querySelector("#" + id).setAttribute("visibility", "hidden")); };
+  const hit = svg.querySelector("#hit");
+  hit.addEventListener("pointermove", show);
+  hit.addEventListener("pointerdown", show);
+  hit.addEventListener("pointerleave", hide);
+}
+
+function c1() {
+  const P = num("c1p"), M = num("c1m"), r = num("c1r") / 100 / 12, Y = Math.max(1, Math.min(60, Math.round(num("c1y"))));
+  let v = P, p = P;
+  const rows = [{ year: 0, v, p }];
+  for (let m = 1; m <= Y * 12; m++) {
+    v = v * (1 + r) + M; p += M;
+    if (m % 12 === 0) rows.push({ year: m / 12, v, p });
+  }
+  $("c1out").innerHTML = stat("期末市值", fmt(v) + " 元") + stat("累计投入", fmt(p) + " 元") + stat("投资收益", fmt(v - p) + " 元") + stat("收益占比", (p ? (v - p) / v * 100 : 0).toFixed(1) + "%");
+  lineChart($("c1chart"), rows);
+  $("c1table").innerHTML = `<table><tr><th>年份</th><th>累计投入</th><th>账户市值</th><th>收益</th></tr>${rows.slice(1).map(r => `<tr><td>${r.year}</td><td>${fmt(r.p)}</td><td>${fmt(r.v)}</td><td>${fmt(r.v - r.p)}</td></tr>`).join("")}</table>`;
+}
+function c2() {
+  const a = num("c2a"), i = num("c2i") / 100, y = num("c2y");
+  const real = a / Math.pow(1 + i, y), need = a * Math.pow(1 + i, y);
+  $("c2out").innerHTML = stat(`${y} 年后的购买力相当于今天`, fmt(real) + " 元") + stat("购买力缩水", ((1 - real / a) * 100).toFixed(1) + "%") + stat(`${y} 年后需要多少钱才等值`, fmt(need) + " 元");
+}
+function c3() {
+  const l = Math.min(99, num("c3l")) / 100, r = num("c3r") / 100;
+  const need = 1 / (1 - l) - 1;
+  const yrs = r > 0 ? Math.log(1 / (1 - l)) / Math.log(1 + r) : Infinity;
+  $("c3out").innerHTML = stat("回本所需涨幅", "+" + (need * 100).toFixed(1) + "%") + stat("按该收益率需要", isFinite(yrs) ? yrs.toFixed(1) + " 年" : "无法回本");
+}
+function c4() {
+  const a = num("c4a"), r = num("c4r") / 100, y = num("c4y");
+  const A = a * Math.pow(1 + r - num("c4f1") / 100, y), B = a * Math.pow(1 + r - num("c4f2") / 100, y);
+  $("c4out").innerHTML = stat("费率 A 期末", fmt(A) + " 元") + stat("费率 B 期末", fmt(B) + " 元") + stat("差距", fmt(A - B) + " 元") + stat("B 比 A 少", (A ? (1 - B / A) * 100 : 0).toFixed(1) + "%");
+}
+function c5() {
+  const f0 = num("c5f"), g = num("c5g") / 100, n = Math.max(1, Math.round(num("c5n"))), tg = num("c5tg") / 100, r = num("c5r") / 100;
+  if (r <= tg) { $("c5out").innerHTML = stat("提示", "折现率必须大于永续增长率"); return; }
+  let f = f0, pv = 0;
+  for (let t = 1; t <= n; t++) { f *= 1 + g; pv += f / Math.pow(1 + r, t); }
+  const tv = f * (1 + tg) / (r - tg) / Math.pow(1 + r, n);
+  const ev = pv + tv, eq = ev + num("c5c"), s = num("c5s") || 1, per = eq / s, price = num("c5p");
+  let html = stat("预测期现值", pv.toFixed(1) + " 亿") + stat("终值现值", tv.toFixed(1) + " 亿") + stat("终值占比", (tv / ev * 100).toFixed(0) + "%") + stat("股权价值", eq.toFixed(1) + " 亿") + stat("每股内在价值", per.toFixed(2) + " 元");
+  if (price > 0) html += stat("安全边际", ((per - price) / per * 100).toFixed(1) + "%");
+  $("c5out").innerHTML = html;
+}
+function c6() {
+  const e = num("c6e"), w = num("c6w") / 100 || 0.04, y = num("c6y"), i = num("c6i") / 100, a = num("c6a"), r = num("c6r") / 100;
+  const targetToday = e / w, targetFuture = targetToday * Math.pow(1 + i, y);
+  const fv = a * Math.pow(1 + r, y), gap = Math.max(0, targetFuture - fv);
+  const mr = r / 12, months = y * 12;
+  const monthly = gap > 0 ? (mr > 0 ? gap * mr / (Math.pow(1 + mr, months) - 1) : gap / months) : 0;
+  $("c6out").innerHTML = stat("所需资产（今天的购买力）", fmt(targetToday) + " 元") + stat(`${y} 年后的名义目标`, fmt(targetFuture) + " 元") + stat("现有资产届时增值到", fmt(fv) + " 元") + stat("每月还需投入", fmt(monthly) + " 元");
+}
+const all = [["c1", ["c1p", "c1m", "c1r", "c1y"], c1], ["c2", ["c2a", "c2i", "c2y"], c2], ["c3", ["c3l", "c3r"], c3], ["c4", ["c4a", "c4r", "c4f1", "c4f2", "c4y"], c4], ["c5", ["c5f", "c5g", "c5n", "c5tg", "c5r", "c5c", "c5s", "c5p"], c5], ["c6", ["c6e", "c6w", "c6y", "c6i", "c6a", "c6r"], c6]];
+document.addEventListener("DOMContentLoaded", () => {
+  all.forEach(([, ids, fn]) => { ids.forEach(id => $(id).addEventListener("input", fn)); fn(); });
+  window.addEventListener("resize", c1);
+});
+</script>
+</body>
+</html>

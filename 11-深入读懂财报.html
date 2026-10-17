@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>深入读懂财报</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="11">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 11 章 · 进阶篇</div>
+  <h1>深入读懂财报</h1>
+  <p class="lead">第 04 章介绍了三张表"是什么"，这一章讲"怎么读"：三张表如何相互验证、如何拆解盈利能力、如何判断利润质量，以及财务造假的常见信号。</p>
+  <div class="meta"><span class="pill">⏱ 约 70 分钟</span><span class="pill">难度 ★★★</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#structure">一份年报的结构</a></li>
+    <li><a href="#is">利润表逐行拆解</a></li>
+    <li><a href="#bs">资产负债表的阅读重点</a></li>
+    <li><a href="#cf">现金流量表与八种组合</a></li>
+    <li><a href="#link">三表勾稽关系</a></li>
+    <li><a href="#dupont">杜邦分析</a></li>
+    <li><a href="#roic">ROIC 与资本效率</a></li>
+    <li><a href="#wc">营运资本与现金循环周期</a></li>
+    <li><a href="#quality">利润质量检验</a></li>
+    <li><a href="#fraud">财务造假的危险信号</a></li>
+    <li><a href="#industry">不同行业看不同指标</a></li>
+    <li><a href="#workflow">读财报的工作流程</a></li>
+  </ol></nav>
+
+  <h2 id="structure">1. 一份年报的结构</h2>
+  <p>A 股年报通常有 200–300 页，不需要逐字阅读。按重要程度排序：</p>
+  <div class="table-wrap"><table>
+    <tr><th>部分</th><th>看什么</th><th>优先级</th></tr>
+    <tr><td>重要提示 / 审计意见</td><td>审计意见类型：<strong>标准无保留意见</strong>最好；"保留意见""无法表示意见""否定意见"是严重警告</td><td>⭐⭐⭐</td></tr>
+    <tr><td>主要会计数据和财务指标</td><td>营收、净利润、扣非净利润、经营现金流、ROE 的多年数据</td><td>⭐⭐⭐</td></tr>
+    <tr><td>管理层讨论与分析（MD&A）</td><td>业务构成、分产品 / 分地区收入和毛利率、行业格局、未来规划、风险因素</td><td>⭐⭐⭐</td></tr>
+    <tr><td>财务报表（合并报表）</td><td>三张表及其变动</td><td>⭐⭐⭐</td></tr>
+    <tr><td>财务报表附注</td><td>应收账款账龄、存货构成、商誉、关联交易、或有事项等细节</td><td>⭐⭐</td></tr>
+    <tr><td>公司治理 / 股份变动</td><td>股东结构、高管薪酬、股权激励、质押</td><td>⭐⭐</td></tr>
+    <tr><td>重要事项</td><td>诉讼、担保、关联交易、承诺履行</td><td>⭐⭐</td></tr>
+  </table></div>
+  <div class="callout tip"><span class="title">合并报表 vs 母公司报表</span><p>年报中同时有"合并"和"母公司"两套报表。分析时<strong>主要看合并报表</strong>，它包含了所有子公司，反映集团整体情况。母公司报表可以用来观察集团内部资金的调配。</p></div>
+
+  <h2 id="is">2. 利润表逐行拆解</h2>
+  <div class="table-wrap"><table>
+    <tr><th>项目</th><th>阅读要点</th></tr>
+    <tr><td>营业收入</td><td>增长来自量还是价？来自主业还是其他业务？是否有大客户依赖？</td></tr>
+    <tr><td>营业成本</td><td>原材料价格变化对成本的影响</td></tr>
+    <tr><td>税金及附加</td><td>白酒、烟草等行业消费税占比高</td></tr>
+    <tr><td>销售费用</td><td>广告、渠道、销售人员费用。占比过高说明产品"难卖"</td></tr>
+    <tr><td>管理费用</td><td>管理效率，警惕异常增长</td></tr>
+    <tr><td>研发费用</td><td>科技公司的生命线；注意<strong>资本化</strong>比例——研发支出计入资产而非费用，会美化当期利润</td></tr>
+    <tr><td>财务费用</td><td>利息支出 − 利息收入 ± 汇兑损益。为负数说明公司现金多、利息收入大于支出</td></tr>
+    <tr><td>投资收益 / 公允价值变动</td><td>非主业收益，波动大，可持续性差</td></tr>
+    <tr><td>资产减值 / 信用减值损失</td><td>存货跌价、应收坏账、商誉减值。突然大额计提可能是"洗大澡"</td></tr>
+    <tr><td>营业外收支</td><td>与经营无关的偶发项目</td></tr>
+    <tr><td>所得税</td><td>有效税率异常低或波动大需要查原因</td></tr>
+  </table></div>
+  <h3>利润的几个层次</h3>
+  <div class="formula" style="font-size:15px;text-align:left;line-height:2">
+    毛利 = 营收 − 营业成本<br>
+    营业利润 ≈ 毛利 − 税金及附加 − 三费 − 研发费用 ± 投资收益等<br>
+    利润总额 = 营业利润 ± 营业外收支<br>
+    净利润 = 利润总额 − 所得税<br>
+    归母净利润 = 净利润 − 少数股东损益<br>
+    <strong>扣非净利润 = 归母净利润 − 非经常性损益</strong>
+  </div>
+  <p><strong>扣非净利润</strong>才是衡量主业盈利的关键。如果一家公司的净利润主要靠卖房产、政府补贴、炒股获得，主业实际可能在亏钱。</p>
+
+  <h2 id="bs">3. 资产负债表的阅读重点</h2>
+  <div class="formula">资产 = 负债 + 所有者权益</div>
+  <h3>资产端：钱变成了什么</h3>
+  <ul>
+    <li><strong>货币资金</strong>：现金多是好事，但要警惕"存贷双高"（账上大量现金，却同时大量借款付利息——这不合理，可能资金是虚构的或被大股东占用）；同时注意现金可能以定期存款形式藏在"一年内到期的非流动资产""其他非流动资产"里；</li>
+    <li><strong>应收账款 / 应收票据</strong>：增速明显超过营收增速，说明可能在放宽信用"赊销"冲业绩；</li>
+    <li><strong>存货</strong>：增速过快可能意味着产品滞销；科技产品存货易贬值；</li>
+    <li><strong>预付款项</strong>：大额预付给不知名供应商，是资金被挪用的常见手法；</li>
+    <li><strong>其他应收款</strong>：常见的"藏污纳垢"科目，关注关联方占款；</li>
+    <li><strong>固定资产 / 在建工程</strong>：在建工程长期不转固，可能是为了少计提折旧；</li>
+    <li><strong>商誉</strong>：来自高溢价收购，一旦被收购公司业绩不达标就要减值，可能一次性吞掉多年利润；</li>
+    <li><strong>无形资产 / 开发支出</strong>：关注研发资本化。</li>
+  </ul>
+  <h3>负债端：钱从哪里来</h3>
+  <ul>
+    <li><strong>有息负债</strong>（短期借款、长期借款、应付债券、一年内到期的非流动负债）：真正需要还本付息的债务；</li>
+    <li><strong>无息经营性负债</strong>（应付账款、应付票据、合同负债）：占用上下游的钱。<strong>这类负债多往往是好事</strong>，说明公司在产业链中地位强势；</li>
+    <li><strong>合同负债（预收款）</strong>：客户先付钱后拿货，是产品抢手的标志，也是未来收入的"蓄水池"。</li>
+  </ul>
+  <div class="callout info"><span class="title">更有意义的负债率</span><p>资产负债率高不一定危险。更值得关注的是<strong>有息负债率 = 有息负债 ÷ 总资产</strong>，以及<strong>净现金 = 现金类资产 − 有息负债</strong>。很多优秀公司负债率 60% 以上，但大部分是无息的经营性负债，账上净现金充裕。</p></div>
+
+  <h2 id="cf">4. 现金流量表与八种组合</h2>
+  <p>现金流分三类：</p>
+  <ul>
+    <li><strong>经营活动</strong>：主营业务收付的现金。健康公司应长期为正；</li>
+    <li><strong>投资活动</strong>：购建资产、收购、理财。扩张期通常为负；</li>
+    <li><strong>筹资活动</strong>：借款、发股、还债、分红、回购。</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <tr><th>经营</th><th>投资</th><th>筹资</th><th>典型画像</th></tr>
+    <tr><td>+</td><td>−</td><td>−</td><td><strong>"现金奶牛"</strong>：主业赚钱，一边投资扩张一边还债或分红。最健康的形态</td></tr>
+    <tr><td>+</td><td>−</td><td>+</td><td><strong>扩张期</strong>：主业赚钱但不够投资，还需融资。关注投资回报</td></tr>
+    <tr><td>+</td><td>+</td><td>−</td><td><strong>收缩 / 成熟期</strong>：卖资产或收回投资，用于还债分红</td></tr>
+    <tr><td>+</td><td>+</td><td>+</td><td>资金囤积，需了解目的</td></tr>
+    <tr><td>−</td><td>−</td><td>+</td><td><strong>初创 / 高风险</strong>：主业不赚钱，靠融资支撑投资</td></tr>
+    <tr><td>−</td><td>+</td><td>+</td><td>主业失血，靠卖资产和融资维持</td></tr>
+    <tr><td>−</td><td>+</td><td>−</td><td><strong>危险</strong>：靠变卖资产还债</td></tr>
+    <tr><td>−</td><td>−</td><td>−</td><td>消耗存量现金，难以持续</td></tr>
+  </table></div>
+  <div class="formula">自由现金流（FCF）= 经营活动现金流净额 − 资本开支<small>资本开支 ≈ "购建固定资产、无形资产和其他长期资产支付的现金"</small></div>
+  <p>自由现金流是公司真正可以用于分红、回购、还债或并购的钱，也是 DCF 估值（第 12 章）的基础。</p>
+
+  <h2 id="link">5. 三表勾稽关系</h2>
+  <p>三张表不是孤立的，它们之间存在严格的逻辑联系（"勾稽关系"），可以互相验证：</p>
+  <ul>
+    <li><strong>利润表 → 资产负债表</strong>：净利润（扣除分红后）进入资产负债表的"未分配利润"，使股东权益增加；</li>
+    <li><strong>现金流量表 → 资产负债表</strong>：现金及现金等价物的期末余额，应与资产负债表中的相应数字一致；</li>
+    <li><strong>利润表 → 现金流量表</strong>：间接法下，经营现金流 = 净利润 + 折旧摊销 + 减值准备 − 营运资本增加 ± 其他调整。</li>
+  </ul>
+  <div class="callout example">
+    <span class="title">用勾稽关系发现问题</span>
+    <p>某公司利润表显示营收增长 30%，但现金流量表"销售商品、提供劳务收到的现金"只增长 5%，同时资产负债表中应收账款增长 80%。三者结合说明：新增收入大部分是赊销，钱没有收回来。</p>
+  </div>
+  <div class="formula">收现比 = 销售商品、提供劳务收到的现金 ÷ 营业收入<small>一般 ≥ 1 较好（因为含增值税，正常情况下略大于 1）</small></div>
+
+  <h2 id="dupont">6. 杜邦分析：拆解 ROE</h2>
+  <p>同样是 20% 的 ROE，背后的质量可能完全不同。杜邦分析把 ROE 拆成三个驱动因素：</p>
+  <div class="formula">ROE = 净利率 × 总资产周转率 × 权益乘数<small>= (净利润/营收) × (营收/总资产) × (总资产/净资产)</small></div>
+  <div class="table-wrap"><table>
+    <tr><th>驱动因素</th><th>代表</th><th>典型行业</th></tr>
+    <tr><td>高净利率</td><td>产品有定价权、品牌溢价</td><td>高端消费品、软件、医药</td></tr>
+    <tr><td>高周转率</td><td>薄利多销、运营效率高</td><td>零售、超市、快消品</td></tr>
+    <tr><td>高权益乘数</td><td>高杠杆经营</td><td>银行、地产、保险</td></tr>
+  </table></div>
+  <div class="callout warn"><span class="title">关键判断</span><p>依靠<strong>高净利率</strong>驱动的 ROE 最可持续；依靠<strong>高杠杆</strong>驱动的 ROE 风险最大，行业下行时可能迅速崩塌。另外，大量回购会使净资产变小、ROE 被"放大"——苹果公司就是典型例子，见 <a href="财报精读-苹果公司.html">苹果财报精读</a>。</p></div>
+
+  <h2 id="roic">7. ROIC 与资本效率</h2>
+  <p>ROE 会受到杠杆的扭曲，<strong>ROIC（投入资本回报率）</strong>则衡量公司使用全部投入资本（股东 + 债权人）的效率：</p>
+  <div class="formula">ROIC = 税后经营利润（NOPAT）÷ 投入资本<small>NOPAT = 营业利润 × (1 − 税率)；投入资本 ≈ 净资产 + 有息负债 − 多余现金</small></div>
+  <ul>
+    <li><strong>ROIC &gt; WACC（资本成本）</strong>：公司在创造价值，增长越快越好；</li>
+    <li><strong>ROIC &lt; WACC</strong>：公司在毁灭价值，增长越快毁灭越多；</li>
+    <li>长期 ROIC &gt; 15% 且稳定的公司，通常拥有护城河。</li>
+  </ul>
+  <p>这是理解"为什么不是所有增长都是好的"的关键：一家 ROIC 只有 5% 的公司，如果靠借钱（成本 6%）扩张，规模越大越亏。</p>
+
+  <h2 id="wc">8. 营运资本与现金循环周期</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标</th><th>公式</th><th>含义</th></tr>
+    <tr><td>存货周转天数（DIO）</td><td>平均存货 ÷ 营业成本 × 365</td><td>货卖出去要多少天</td></tr>
+    <tr><td>应收账款周转天数（DSO）</td><td>平均应收 ÷ 营收 × 365</td><td>钱收回来要多少天</td></tr>
+    <tr><td>应付账款周转天数（DPO）</td><td>平均应付 ÷ 营业成本 × 365</td><td>多少天后才付钱给供应商</td></tr>
+    <tr><td><strong>现金循环周期（CCC）</strong></td><td>DIO + DSO − DPO</td><td>从付钱买原料到收回货款，资金被占用的天数</td></tr>
+  </table></div>
+  <p>CCC 越短越好，甚至为负数——意味着公司先收客户的钱，再付供应商的钱，用别人的钱做生意。家电龙头、大型零售商、部分互联网平台都具有这种特点。</p>
+
+  <h2 id="quality">9. 利润质量检验清单</h2>
+  <ul class="checklist">
+    <li><input type="checkbox" id="q1"><label for="q1">经营现金流 / 净利润 长期 ≥ 1（多年平均）</label></li>
+    <li><input type="checkbox" id="q2"><label for="q2">扣非净利润与归母净利润接近，非经常性损益占比小</label></li>
+    <li><input type="checkbox" id="q3"><label for="q3">应收账款增速 ≤ 营收增速</label></li>
+    <li><input type="checkbox" id="q4"><label for="q4">存货增速 ≤ 营收增速（除非有合理的备货理由）</label></li>
+    <li><input type="checkbox" id="q5"><label for="q5">收现比 ≥ 1</label></li>
+    <li><input type="checkbox" id="q6"><label for="q6">毛利率与同行可比，没有异常偏高</label></li>
+    <li><input type="checkbox" id="q7"><label for="q7">研发资本化比例低且稳定</label></li>
+    <li><input type="checkbox" id="q8"><label for="q8">商誉占净资产比例低</label></li>
+    <li><input type="checkbox" id="q9"><label for="q9">自由现金流长期为正</label></li>
+    <li><input type="checkbox" id="q10"><label for="q10">审计意见为标准无保留，且审计机构没有频繁更换</label></li>
+  </ul>
+
+  <h2 id="fraud">10. 财务造假的危险信号</h2>
+  <div class="callout danger">
+    <span class="title">出现多个信号时要高度警惕</span>
+    <ul>
+      <li><strong>存贷双高</strong>：账上大量现金，却借高息贷款；</li>
+      <li><strong>利润高增长但现金流持续为负</strong>；</li>
+      <li><strong>毛利率远超同行</strong>，且说不出令人信服的理由；</li>
+      <li><strong>应收、预付、其他应收款大幅增加</strong>，对象是不知名公司或关联方；</li>
+      <li><strong>大客户、大供应商频繁变化</strong>或高度集中且信息不透明；</li>
+      <li><strong>频繁更换审计机构</strong>，或审计师出具非标意见；</li>
+      <li><strong>高管、财务总监频繁离职</strong>；</li>
+      <li><strong>大股东高比例股权质押</strong>，同时不断减持；</li>
+      <li><strong>业绩刚好"踩线"</strong>，如刚好完成对赌业绩、刚好避免连续亏损退市；</li>
+      <li><strong>年报延期披露</strong>、多次修正业绩预告；</li>
+      <li><strong>大额"在建工程"长期不转固</strong>，或固定资产与产能明显不匹配；</li>
+      <li><strong>一边高额分红一边大量融资</strong>（"左手倒右手"）。</li>
+    </ul>
+  </div>
+  <p>历史上的财务造假案例中，很多都可以在事后从报表中找到这些信号。<strong>看不懂的公司，宁可错过</strong>。</p>
+
+  <h2 id="industry">11. 不同行业看不同指标</h2>
+  <div class="table-wrap"><table>
+    <tr><th>行业</th><th>核心关注</th></tr>
+    <tr><td>消费品</td><td>毛利率、销售费用率、合同负债（预收）、渠道库存、品牌力</td></tr>
+    <tr><td>制造业</td><td>产能利用率、资本开支、存货周转、原材料成本敏感度、海外收入占比</td></tr>
+    <tr><td>银行</td><td>净息差、不良贷款率、拨备覆盖率、资本充足率、PB</td></tr>
+    <tr><td>保险</td><td>内含价值（EV）、新业务价值（NBV）、综合成本率、投资收益率</td></tr>
+    <tr><td>房地产</td><td>"三道红线"（剔除预收的资产负债率、净负债率、现金短债比）、销售回款、土储质量</td></tr>
+    <tr><td>科技 / 软件</td><td>收入增速、毛利率、研发投入、客户留存率（NRR）、经常性收入占比</td></tr>
+    <tr><td>互联网平台</td><td>用户数（MAU/DAU）、ARPU、变现率、营销费用效率</td></tr>
+    <tr><td>医药</td><td>研发管线、集采影响、销售费用率、核心产品专利期</td></tr>
+    <tr><td>周期行业（钢铁、煤炭、化工、航运）</td><td>产品价格、成本曲线位置、供需格局。利润最高时 PE 最低，往往是卖点</td></tr>
+  </table></div>
+
+  <h2 id="workflow">12. 读财报的工作流程</h2>
+  <ol>
+    <li><strong>先看审计意见</strong>：非标意见直接排除；</li>
+    <li><strong>拉出 5–10 年关键数据</strong>：营收、扣非净利润、经营现金流、ROE、毛利率、资产负债率，看趋势和稳定性；</li>
+    <li><strong>读 MD&A</strong>：理解业务构成、增长驱动和管理层判断；</li>
+    <li><strong>三表交叉验证</strong>：用本章的勾稽关系和利润质量清单检查；</li>
+    <li><strong>深入附注</strong>：重点查看异常变动科目的明细；</li>
+    <li><strong>同行对比</strong>：选 2–3 家可比公司横向比较；</li>
+    <li><strong>写下结论</strong>：这家公司的竞争力在哪？最大的风险是什么？</li>
+  </ol>
+  <div class="callout tip"><span class="title">实战练习</span><p>带着本章的方法，去读实战篇的三份真实财报：<a href="财报精读-美的集团.html">美的集团（A 股）</a>、<a href="财报精读-腾讯控股.html">腾讯控股（港股）</a>、<a href="财报精读-苹果公司.html">苹果公司（美股）</a>。原文已下载在 <code>财报原文/</code> 文件夹。</p></div>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：A、B 两家公司 ROE 都是 20%。A 的权益乘数是 1.5，B 的权益乘数是 6。你更看好哪家的持续性？</div>
+    <details><summary>查看答案</summary><p>通常是 A。A 的 ROE 主要靠盈利能力和周转率，B 则严重依赖杠杆（总资产是净资产的 6 倍），一旦资产端出现损失，ROE 会迅速恶化。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：一家公司的资产负债率 65%，但有息负债几乎为零，大部分负债是应付账款和合同负债。这说明什么？</div>
+    <details><summary>查看答案</summary><p>说明公司在产业链中议价能力强，占用了上下游的资金经营，财务风险并不高，反而可能是竞争优势的体现。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

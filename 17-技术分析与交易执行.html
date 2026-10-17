@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>技术分析与交易执行</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="17">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 17 章 · 进阶篇</div>
+  <h1>技术分析与交易执行</h1>
+  <p class="lead">技术分析研究价格和成交量本身。它的有效性在学术界争议很大，但你至少应该看得懂常见的图表和术语，并学会在执行层面管理好仓位和风险——这一部分对任何投资者都有用。</p>
+  <div class="meta"><span class="pill">⏱ 约 50 分钟</span><span class="pill">难度 ★★★</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#view">客观看待技术分析</a></li>
+    <li><a href="#kline">K 线基础</a></li>
+    <li><a href="#trend">趋势、支撑与阻力</a></li>
+    <li><a href="#ma">均线</a></li>
+    <li><a href="#volume">量价关系</a></li>
+    <li><a href="#indicators">常用技术指标</a></li>
+    <li><a href="#position">仓位管理方法</a></li>
+    <li><a href="#stop">止损与止盈</a></li>
+    <li><a href="#exec">交易执行细节</a></li>
+    <li><a href="#discipline">交易纪律</a></li>
+  </ol></nav>
+
+  <h2 id="view">1. 客观看待技术分析</h2>
+  <div class="grid">
+    <div class="card"><h4>支持的观点</h4><p>价格反映了所有信息与情绪；趋势具有一定持续性（学术上的动量效应有大量证据）；关键价位因大量投资者关注而形成"自我实现"。</p></div>
+    <div class="card"><h4>质疑的观点</h4><p>很多形态和指标经不起严格的统计检验；事后看图总是"很准"（幸存者偏差和后见之明）；扣除交易成本后，大多数技术交易策略难以长期获利。</p></div>
+  </div>
+  <div class="callout info"><span class="title">本书的立场</span><p>对长期投资者，技术分析<strong>不应作为买卖的主要依据</strong>，但可以作为辅助：帮助判断市场情绪、选择相对合适的执行时点、设定风险控制价位。真正要掌握的，是本章后半部分的<strong>仓位管理和交易纪律</strong>。</p></div>
+
+  <h2 id="kline">2. K 线基础</h2>
+  <p>一根 K 线记录了一个周期（日、周、月等）内的四个价格：<strong>开盘、收盘、最高、最低</strong>。</p>
+  <ul>
+    <li><strong>实体</strong>：开盘价与收盘价之间的部分。A 股中<span style="color:var(--red)">红色</span>表示收盘 &gt; 开盘（阳线），<span style="color:var(--green)">绿色</span>表示收盘 &lt; 开盘（阴线）。<strong>注意：美股、港股等多数海外市场习惯相反，绿涨红跌</strong>；</li>
+    <li><strong>上影线</strong>：最高价到实体上沿，代表上方有抛压；</li>
+    <li><strong>下影线</strong>：最低价到实体下沿，代表下方有承接。</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <tr><th>形态</th><th>样子</th><th>传统解读</th></tr>
+    <tr><td>大阳线 / 大阴线</td><td>长实体，影线很短</td><td>多方 / 空方强势</td></tr>
+    <tr><td>十字星</td><td>开盘≈收盘，有上下影线</td><td>多空平衡，可能变盘</td></tr>
+    <tr><td>锤子线</td><td>小实体，长下影线，出现在下跌后</td><td>可能见底</td></tr>
+    <tr><td>射击之星</td><td>小实体，长上影线，出现在上涨后</td><td>可能见顶</td></tr>
+    <tr><td>吞没形态</td><td>第二根实体完全包住第一根</td><td>趋势可能反转</td></tr>
+  </table></div>
+
+  <h2 id="trend">3. 趋势、支撑与阻力</h2>
+  <ul>
+    <li><strong>上升趋势</strong>：高点和低点不断抬高；</li>
+    <li><strong>下降趋势</strong>：高点和低点不断降低；</li>
+    <li><strong>震荡（横盘）</strong>：价格在区间内反复。</li>
+  </ul>
+  <p><strong>支撑位</strong>是价格下跌时可能止跌的区域（前期低点、密集成交区、整数关口）；<strong>阻力位</strong>是价格上涨时可能受阻的区域（前期高点、套牢盘集中区）。支撑被有效跌破后往往变成阻力，反之亦然。</p>
+  <div class="callout tip"><span class="title">最朴素也最有用的一条</span><p>"趋势是你的朋友"——不要在明显的下跌趋势中轻易"抄底"一只个股。下跌的股票可以继续下跌很久。</p></div>
+
+  <h2 id="ma">4. 均线（移动平均线）</h2>
+  <p>N 日均线 = 最近 N 个交易日收盘价的平均值。常用：5 日、10 日（短期）、20 日、60 日（中期）、120 日、250 日（长期，"年线"）。</p>
+  <ul>
+    <li><strong>多头排列</strong>：短期均线在上、长期均线在下，且都向上——上升趋势；</li>
+    <li><strong>空头排列</strong>：相反——下降趋势；</li>
+    <li><strong>金叉 / 死叉</strong>：短期均线向上 / 向下穿越长期均线；</li>
+    <li><strong>长期均线策略</strong>：如"指数在 200 日（或 250 日）均线之上持有、之下减仓"，历史上能在一定程度上规避大熊市，但在震荡市中会频繁"打脸"，产生交易成本。</li>
+  </ul>
+
+  <h2 id="volume">5. 量价关系</h2>
+  <div class="table-wrap"><table>
+    <tr><th>量价组合</th><th>传统解读</th></tr>
+    <tr><td>价涨量增</td><td>上涨得到资金认可，趋势健康</td></tr>
+    <tr><td>价涨量缩</td><td>上涨动能减弱，需警惕</td></tr>
+    <tr><td>价跌量增</td><td>抛压沉重，恐慌出逃</td></tr>
+    <tr><td>价跌量缩</td><td>抛压减轻，可能接近底部</td></tr>
+    <tr><td>高位放巨量滞涨</td><td>可能有资金在高位出货</td></tr>
+    <tr><td>地量</td><td>交投极度冷清，常出现在底部区域（"地量见地价"）</td></tr>
+  </table></div>
+
+  <h2 id="indicators">6. 常用技术指标</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标</th><th>类型</th><th>用法</th><th>局限</th></tr>
+    <tr><td>MACD</td><td>趋势</td><td>DIF 与 DEA 的金叉 / 死叉；柱状线反映动能；顶 / 底背离</td><td>滞后，震荡市信号频繁</td></tr>
+    <tr><td>RSI</td><td>震荡</td><td>&gt; 70 超买，&lt; 30 超卖</td><td>强趋势中可长时间超买 / 超卖</td></tr>
+    <tr><td>KDJ</td><td>震荡</td><td>K、D 线交叉，J 值极端</td><td>非常敏感，噪音多</td></tr>
+    <tr><td>布林带（BOLL）</td><td>波动</td><td>价格在中轨 ± 2 倍标准差通道内波动；通道收窄预示变盘</td><td>突破后可能沿上 / 下轨持续运行</td></tr>
+    <tr><td>ATR</td><td>波动</td><td>平均真实波幅，用于设置止损距离和仓位</td><td>不指示方向</td></tr>
+  </table></div>
+  <div class="callout warn"><span class="title">指标越多越好？</span><p>大部分技术指标都是由价格和成交量计算出来的，本质上信息高度重叠。堆叠大量指标只会制造"确定性"的错觉。选 1–2 个理解透彻的就够了。</p></div>
+
+  <h2 id="position">7. 仓位管理方法</h2>
+  <p>决定"买多少"往往比"买什么"更重要。</p>
+  <h3>固定比例风险法</h3>
+  <p>每笔交易的最大亏损不超过总资金的固定比例（通常 1%–2%）。</p>
+  <div class="formula">买入数量 = (总资金 × 单笔风险比例) ÷ (买入价 − 止损价)</div>
+  <div class="callout example"><span class="title">例子</span><p>总资金 20 万元，单笔风险 1%（2000 元）。买入价 50 元，止损价 45 元，每股风险 5 元。买入数量 = 2000 ÷ 5 = 400 股（2 万元，占总资金 10%）。即使止损，也只亏 1%。</p></div>
+  <h3>凯利公式（了解即可）</h3>
+  <div class="formula">最优仓位比例 f = p − (1 − p) ÷ b<small>p：胜率；b：盈亏比（平均盈利 ÷ 平均亏损）</small></div>
+  <p>例如胜率 55%、盈亏比 1.5，f = 0.55 − 0.45 ÷ 1.5 = 25%。凯利公式在理论上最大化长期增长，但它对参数估计极其敏感，现实中的胜率和盈亏比都难以准确估计。实践中常用"<strong>半凯利</strong>"甚至更低的比例。</p>
+  <h3>金字塔加仓 vs 倒金字塔</h3>
+  <ul>
+    <li><strong>金字塔加仓</strong>（顺势）：首次买入最多，盈利后逐次减少加仓数量，平均成本可控；</li>
+    <li><strong>倒金字塔</strong>（越涨越加越多）：成本快速抬高，一次回调就可能由盈转亏，应避免；</li>
+    <li><strong>亏损加仓（摊薄成本）</strong>：只有在基本面逻辑未变、且事先有计划的情况下才可考虑，并设好上限。</li>
+  </ul>
+
+  <h2 id="stop">8. 止损与止盈</h2>
+  <h3>止损的几种方式</h3>
+  <ul>
+    <li><strong>价格止损</strong>：跌破某个关键价位（如前低、重要均线）；</li>
+    <li><strong>比例止损</strong>：亏损达到固定比例（如 8%–15%）；</li>
+    <li><strong>波动止损</strong>：以 ATR 的倍数设置，适应不同股票的波动特性；</li>
+    <li><strong>时间止损</strong>：持有一段时间后仍未按预期发展，就退出；</li>
+    <li><strong>逻辑止损（基本面）</strong>：买入的理由不再成立（如业绩不及预期、竞争格局恶化）。这是价值投资者最重要的止损方式。</li>
+  </ul>
+  <h3>止盈的几种方式</h3>
+  <ul>
+    <li><strong>目标价止盈</strong>：达到估值目标后分批卖出；</li>
+    <li><strong>移动止盈</strong>：从最高点回撤一定比例后卖出，"让利润奔跑"；</li>
+    <li><strong>估值止盈</strong>：估值进入历史高位区间时分批卖出（指数基金常用）；</li>
+    <li><strong>再平衡止盈</strong>：通过资产配置再平衡自动实现。</li>
+  </ul>
+  <div class="callout info"><span class="title">指数基金需要止损吗？</span><p>对于宽基指数基金的长期定投，通常<strong>不设价格止损</strong>，因为下跌恰恰是积累低成本份额的时机。风险应通过资产配置控制。但对个股和行业基金，止损纪律非常重要。</p></div>
+
+  <h2 id="exec">9. 交易执行细节</h2>
+  <ul>
+    <li><strong>用限价单</strong>：尤其是在流动性较差的股票、ETF 和开盘、收盘时段；</li>
+    <li><strong>注意买卖价差</strong>：小盘股、冷门 ETF 价差大，隐性成本高；</li>
+    <li><strong>避开开盘前几分钟</strong>：波动大、价格发现尚不充分；</li>
+    <li><strong>大额分批</strong>：避免单笔大单对价格造成冲击；</li>
+    <li><strong>善用条件单</strong>：大多数券商 App 支持价格条件单、止盈止损单、网格交易，可以提前设置、减少盯盘和情绪干扰；</li>
+    <li><strong>注意除权除息</strong>：分红后股价会相应下调，看历史走势要用"复权"价格（前复权 / 后复权）；</li>
+    <li><strong>关注停复牌、解禁、分红登记日</strong>等事件。</li>
+  </ul>
+
+  <h2 id="discipline">10. 交易纪律</h2>
+  <ol>
+    <li><strong>先计划，后交易</strong>：买入前写好理由、仓位、止损和止盈；</li>
+    <li><strong>只交易计划内的标的</strong>：不因群消息、新闻临时起意；</li>
+    <li><strong>亏损时绝不加杠杆</strong>；</li>
+    <li><strong>连续亏损时减小仓位或暂停</strong>：避免"报复性交易"；</li>
+    <li><strong>不在情绪激动时下单</strong>：极度兴奋或恐惧时，先离开屏幕；</li>
+    <li><strong>记录每一笔交易</strong>：日期、价格、数量、理由、情绪、结果，定期复盘（见第 18 章）；</li>
+    <li><strong>区分"投资"和"交易"账户</strong>：长期投资的仓位不受短线交易影响。</li>
+  </ol>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：总资金 10 万元，单笔最大亏损 1.5%，计划 20 元买入，止损 18 元，最多买多少股？</div>
+    <details><summary>查看答案</summary><p>可承受亏损 1500 元，每股风险 2 元，最多 750 股，按 A 股一手 100 股取整为 700 股。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：为什么说"止损"对价值投资者来说主要是"逻辑止损"？</div>
+    <details><summary>查看答案</summary><p>价值投资者基于对企业价值的判断买入，价格下跌本身可能意味着更便宜、更值得买；真正应该卖出的时候，是当初买入的理由（基本面、竞争力、管理层）不再成立。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

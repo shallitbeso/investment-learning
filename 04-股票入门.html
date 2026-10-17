@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>股票入门</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="04">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 04 章</div>
+  <h1>股票入门</h1>
+  <p class="lead">股票不是一串跳动的代码，而是一家真实企业的所有权凭证。这一章帮你建立对股票的正确认识，并学会看懂最基本的数据。</p>
+  <div class="meta"><span class="pill">⏱ 约 50 分钟</span><span class="pill">难度 ★★☆</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#what">股票是什么</a></li>
+    <li><a href="#return">股票的收益来源</a></li>
+    <li><a href="#market">市场与板块</a></li>
+    <li><a href="#rules">A 股交易规则</a></li>
+    <li><a href="#hkus">港股与美股的区别</a></li>
+    <li><a href="#quote">看懂行情界面</a></li>
+    <li><a href="#index">股票指数</a></li>
+    <li><a href="#fin">财报三张表入门</a></li>
+    <li><a href="#metrics">核心财务指标</a></li>
+    <li><a href="#valuation">估值入门：PE、PB、股息率</a></li>
+    <li><a href="#pick">如何研究一家公司</a></li>
+  </ol></nav>
+
+  <h2 id="what">1. 股票是什么</h2>
+  <p>一家公司为了发展需要资金，它可以把公司的所有权分成很多等份出售，每一份就是一股。你买入股票，就成为这家公司的<strong>股东</strong>，按持股比例享有：</p>
+  <ul>
+    <li><strong>收益权</strong>：分享公司利润（以分红形式）；</li>
+    <li><strong>表决权</strong>：参加股东大会投票；</li>
+    <li><strong>剩余财产分配权</strong>：公司清算时，在还清债务后分配剩余资产（股东排在最后）。</li>
+  </ul>
+  <div class="callout info">
+    <span class="title">股价长期由什么决定？</span>
+    <p>短期看，股价由买卖双方的情绪和资金决定，充满随机性；长期看，股价会向公司的<strong>盈利能力和内在价值</strong>靠拢。格雷厄姆有句名言："市场短期是投票机，长期是称重机。"</p>
+  </div>
+
+  <h2 id="return">2. 股票的收益来源</h2>
+  <div class="formula">股票总收益 = 股息收益 + 资本利得（价差）</div>
+  <p>进一步拆解，长期股价上涨来自两个因素：</p>
+  <ul>
+    <li><strong>盈利增长</strong>：公司赚的钱越来越多（最可靠的来源）；</li>
+    <li><strong>估值变化</strong>：市场愿意为每 1 元利润支付的价格（市盈率）变高或变低（波动最大的来源）。</li>
+  </ul>
+  <div class="formula">股价 = 每股收益（EPS）× 市盈率（PE）</div>
+  <div class="callout example">
+    <span class="title">例子</span>
+    <p>某公司每股收益 2 元，市盈率 15 倍，股价 30 元。5 年后每股收益增长到 3 元，如果市盈率不变，股价为 45 元；如果市场情绪低迷、市盈率降到 10 倍，股价反而是 30 元，5 年白忙活。这说明：<strong>买入价格（估值）同样重要</strong>。</p>
+  </div>
+
+  <h2 id="market">3. A 股的市场与板块</h2>
+  <div class="table-wrap"><table>
+    <tr><th>板块</th><th>交易所</th><th>代码开头</th><th>特点</th><th>个人开通门槛</th></tr>
+    <tr><td>主板</td><td>上交所 / 深交所</td><td>60 / 00</td><td>大中型成熟企业</td><td>无特殊门槛</td></tr>
+    <tr><td>创业板</td><td>深交所</td><td>30</td><td>成长型创新企业</td><td>前 20 个交易日日均资产 ≥ 10 万元 + 24 个月交易经验</td></tr>
+    <tr><td>科创板</td><td>上交所</td><td>688</td><td>硬科技企业，可未盈利上市</td><td>前 20 个交易日日均资产 ≥ 50 万元 + 24 个月交易经验</td></tr>
+    <tr><td>北交所</td><td>北交所</td><td>8 / 4 / 92</td><td>创新型中小企业</td><td>前 20 个交易日日均资产 ≥ 50 万元 + 24 个月交易经验</td></tr>
+  </table></div>
+  <p>另外还有带 <strong>ST / *ST</strong> 标记的股票，表示公司财务或经营出现异常（*ST 表示有退市风险）。<strong>新手应坚决回避</strong>。</p>
+
+  <h2 id="rules">4. A 股交易规则</h2>
+  <div class="table-wrap"><table>
+    <tr><th>规则</th><th>内容</th></tr>
+    <tr><td>交易时间</td><td>工作日 9:15–9:25 集合竞价；9:30–11:30、13:00–15:00 连续竞价</td></tr>
+    <tr><td>交收制度</td><td><strong>T+1</strong>：今天买入的股票，最早明天才能卖出</td></tr>
+    <tr><td>最小单位</td><td>一手 = 100 股（科创板 200 股起，之后可按 1 股递增）</td></tr>
+    <tr><td>涨跌幅限制</td><td>主板 ±10%；创业板、科创板 ±20%；北交所 ±30%；主板 ST 股 ±5%；新股上市初期另有规定</td></tr>
+    <tr><td>交易费用</td><td>佣金（双向，券商自定，常见万分之一至万分之三，部分券商有最低 5 元）；印花税（卖出时收取 0.05%）；过户费（双向，0.001%）</td></tr>
+  </table></div>
+  <h3>两种基本订单</h3>
+  <ul>
+    <li><strong>限价单</strong>：指定价格，只有达到或优于该价格才成交。新手推荐使用；</li>
+    <li><strong>市价单</strong>：按当前市场最优价格立即成交，可能出现成交价偏离预期。</li>
+  </ul>
+  <div class="callout example">
+    <span class="title">算一笔账</span>
+    <p>以 20 元买入 500 股（1 万元），佣金万 2.5 → 2.5 元，但若有最低 5 元则收 5 元；过户费 0.1 元。以 22 元卖出（1.1 万元），佣金 5 元、印花税 5.5 元、过户费 0.11 元。总费用约 15.7 元。小额频繁交易时，最低佣金会显著抬高成本。</p>
+  </div>
+
+  <h2 id="hkus">5. 港股与美股的主要区别</h2>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>A 股</th><th>港股</th><th>美股</th></tr>
+    <tr><td>交收</td><td>T+1</td><td>T+0（可当天买卖）</td><td>T+0（可当天买卖）</td></tr>
+    <tr><td>涨跌停</td><td>有</td><td>无</td><td>无（有市场级熔断和个股暂停机制）</td></tr>
+    <tr><td>交易单位</td><td>100 股</td><td>每只股票"一手"股数不同</td><td>1 股起，部分券商支持碎股</td></tr>
+    <tr><td>币种</td><td>人民币</td><td>港币（部分有人民币柜台）</td><td>美元</td></tr>
+    <tr><td>内地投资渠道</td><td>A 股账户</td><td>港股通（需 50 万资产门槛）或境外券商</td><td>境外券商或 QDII 基金</td></tr>
+    <tr><td>分红税</td><td>见第 09 章</td><td>港股通通常 20% 预扣</td><td>一般预扣 10%–30%</td></tr>
+  </table></div>
+  <div class="callout warn"><span class="title">注意</span><p>没有涨跌停意味着单日可能大涨或暴跌 50% 以上。港股小市值股票还存在"老千股"、流动性枯竭等问题。对新手而言，通过 QDII 基金或在境内上市的跨境 ETF 投资海外市场更简单。</p></div>
+
+  <h2 id="quote">6. 看懂行情界面</h2>
+  <div class="grid">
+    <div class="card"><h4>现价 / 涨跌幅</h4><p>最新成交价，以及相对昨日收盘价的变化</p></div>
+    <div class="card"><h4>开盘 / 最高 / 最低</h4><p>当天的开盘价和价格区间</p></div>
+    <div class="card"><h4>成交量 / 成交额</h4><p>当天成交的股数和金额，反映交投活跃度</p></div>
+    <div class="card"><h4>换手率</h4><p>成交量 ÷ 流通股本。过高可能意味着投机炒作</p></div>
+    <div class="card"><h4>总市值</h4><p>股价 × 总股本，即市场给这家公司的"总价"</p></div>
+    <div class="card"><h4>五档盘口</h4><p>买一至买五、卖一至卖五的挂单价格和数量</p></div>
+    <div class="card"><h4>市盈率（TTM）</h4><p>按最近四个季度利润计算的市盈率</p></div>
+    <div class="card"><h4>K 线</h4><p>用"蜡烛"表示一段时间的开高低收价格，详见第 17 章</p></div>
+  </div>
+
+  <h2 id="index">7. 股票指数</h2>
+  <p>指数是按一定规则挑选一篮子股票，计算其整体表现的指标，相当于市场的"温度计"。</p>
+  <div class="table-wrap"><table>
+    <tr><th>指数</th><th>成分</th><th>代表</th></tr>
+    <tr><td>上证指数</td><td>上交所全部股票</td><td>最常被提及的"大盘"</td></tr>
+    <tr><td>沪深 300</td><td>沪深两市市值大、流动性好的 300 只股票</td><td>A 股大盘蓝筹</td></tr>
+    <tr><td>中证 500</td><td>排在沪深 300 之后的 500 只</td><td>中盘股</td></tr>
+    <tr><td>中证 1000</td><td>再往后的 1000 只</td><td>小盘股</td></tr>
+    <tr><td>中证 A500</td><td>各行业中选出 500 只龙头</td><td>行业均衡的核心资产</td></tr>
+    <tr><td>创业板指 / 科创 50</td><td>创业板、科创板代表性公司</td><td>成长、科技风格</td></tr>
+    <tr><td>恒生指数 / 恒生科技</td><td>港股龙头 / 港股科技公司</td><td>港股市场</td></tr>
+    <tr><td>标普 500 / 纳斯达克 100</td><td>美国 500 家大公司 / 纳斯达克前 100 家非金融公司</td><td>美股市场</td></tr>
+  </table></div>
+
+  <h2 id="fin">8. 财报三张表入门</h2>
+  <p>上市公司每季度、每半年、每年都要公布财务报告。最核心的是三张表：</p>
+  <div class="grid">
+    <div class="card"><h4>📊 利润表</h4><p><strong>一段时间内赚了多少钱。</strong>营业收入 − 成本 − 各项费用 − 税 = 净利润。像公司的"成绩单"。</p></div>
+    <div class="card"><h4>🏦 资产负债表</h4><p><strong>某个时间点有多少家底。</strong>资产 = 负债 + 股东权益。像公司的"体检报告"。</p></div>
+    <div class="card"><h4>💵 现金流量表</h4><p><strong>真金白银的进出。</strong>分为经营、投资、筹资三类现金流。像公司的"银行流水"。</p></div>
+  </div>
+  <div class="callout tip">
+    <span class="title">为什么现金流很重要</span>
+    <p>利润可以通过会计手段"调节"，但现金很难造假。一家公司如果连年有利润，但经营现金流长期为负，说明利润可能只是"纸面富贵"（例如货卖出去了但钱收不回来）。第 11 章会深入讲解。</p>
+  </div>
+
+  <h2 id="metrics">9. 核心财务指标</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标</th><th>公式</th><th>含义</th><th>参考</th></tr>
+    <tr><td>营收增长率</td><td>(本期营收 ÷ 上期营收) − 1</td><td>公司规模扩张速度</td><td>持续稳定增长更好</td></tr>
+    <tr><td>毛利率</td><td>(营收 − 营业成本) ÷ 营收</td><td>产品本身的赚钱能力和定价权</td><td>越高说明竞争力越强，需同行业比较</td></tr>
+    <tr><td>净利率</td><td>净利润 ÷ 营收</td><td>最终每 100 元收入能留下多少利润</td><td>同上</td></tr>
+    <tr><td><strong>ROE（净资产收益率）</strong></td><td>净利润 ÷ 平均净资产</td><td>股东每投入 1 元，每年能赚多少</td><td>长期 &gt; 15% 通常被认为优秀</td></tr>
+    <tr><td>资产负债率</td><td>总负债 ÷ 总资产</td><td>借钱经营的程度</td><td>一般企业 &lt; 60% 较稳健；银行、地产天然较高</td></tr>
+    <tr><td>经营现金流 / 净利润</td><td>经营活动现金流净额 ÷ 净利润</td><td>利润的"含金量"</td><td>长期 ≥ 1 较好</td></tr>
+  </table></div>
+  <p>巴菲特曾说，如果只能用一个指标选股，他会选 <strong>ROE</strong>。长期保持高 ROE 的公司，通常有强大的竞争优势（"护城河"）。</p>
+
+  <h2 id="valuation">10. 估值入门：贵还是便宜？</h2>
+  <h3>市盈率（PE）</h3>
+  <div class="formula">市盈率 = 股价 ÷ 每股收益 = 总市值 ÷ 净利润<small>可理解为：按当前利润，需要多少年才能"回本"</small></div>
+  <ul>
+    <li>PE 低不一定便宜，可能是公司前景差（"价值陷阱"）；</li>
+    <li>PE 高不一定贵，可能是市场预期公司高速增长；</li>
+    <li>亏损公司 PE 为负，没有意义；周期性行业（钢铁、煤炭、航运）在利润最高时 PE 反而最低，要特别小心。</li>
+  </ul>
+  <h3>市净率（PB）</h3>
+  <div class="formula">市净率 = 股价 ÷ 每股净资产 = 总市值 ÷ 净资产</div>
+  <p>适合资产较重、利润波动大的行业，如银行、保险、钢铁。PB &lt; 1 表示股价低于账面净资产（"破净"）。</p>
+  <h3>股息率</h3>
+  <div class="formula">股息率 = 每股年度分红 ÷ 股价</div>
+  <p>反映持有股票的"现金回报"。稳定的高股息往往来自现金流充沛的成熟企业。但也要警惕：股价暴跌导致的"被动高股息"，以及不可持续的分红。</p>
+  <h3>估值的相对性</h3>
+  <p>估值要比较才有意义：</p>
+  <ul>
+    <li><strong>和自己的历史比</strong>：当前 PE 处于过去 10 年的什么位置（"估值百分位"）；</li>
+    <li><strong>和同行比</strong>：同一行业的公司放在一起比较；</li>
+    <li><strong>和增长比</strong>：高增长可以支撑更高估值（PEG，见第 12 章）。</li>
+  </ul>
+
+  <h2 id="pick">11. 如何研究一家公司（入门版）</h2>
+  <ol>
+    <li><strong>看懂生意</strong>：公司卖什么、卖给谁、靠什么赚钱？如果一句话说不清楚，先别买。</li>
+    <li><strong>看行业</strong>：行业在增长还是萎缩？竞争格局如何？</li>
+    <li><strong>看护城河</strong>：品牌、技术专利、网络效应、成本优势、转换成本——它凭什么不被对手打败？</li>
+    <li><strong>看财务</strong>：过去 5–10 年营收和利润是否稳定增长？ROE 如何？现金流是否健康？负债是否过高？</li>
+    <li><strong>看管理层</strong>：是否诚信？是否重视股东回报？有没有频繁减持？</li>
+    <li><strong>看估值</strong>：当前价格是否合理？</li>
+    <li><strong>想风险</strong>：什么情况会让你的判断出错？</li>
+  </ol>
+  <div class="callout danger">
+    <span class="title">新手提醒</span>
+    <p>即使做了研究，个股的风险仍远高于指数。研究表明，长期来看，大多数个股跑输大盘指数，市场的长期回报主要由少数大牛股贡献。新手建议<strong>先用指数基金打底</strong>，个股仓位控制在总投资的 10%–20% 以内，并且至少分散在 5–10 只不同行业的股票。</p>
+  </div>
+  <p>想看真实的财报长什么样？学完第 11 章后，去看看实战篇的 <a href="财报精读-美的集团.html">美的集团</a>、<a href="财报精读-腾讯控股.html">腾讯控股</a>、<a href="财报精读-苹果公司.html">苹果公司</a> 精读。</p>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：你周一在 A 股买入了一只股票，周一下午它大跌，能马上卖出吗？</div>
+    <details><summary>查看答案</summary><p>不能。A 股实行 T+1，最早周二才能卖出。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：A 公司 PE 为 8 倍，B 公司 PE 为 30 倍，A 一定比 B 更值得买吗？</div>
+    <details><summary>查看答案</summary><p>不一定。A 可能是利润将要下滑的周期股或衰退行业，B 可能是高速增长的公司。需要结合增长、行业、历史估值等综合判断。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q3：一家公司净利润连续 3 年增长，但经营现金流连续 3 年为负，可能说明什么？</div>
+    <details><summary>查看答案</summary><p>利润质量可能较差：应收账款大量增加（钱收不回来）、存货积压，甚至可能存在财务造假，需要深入调查。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

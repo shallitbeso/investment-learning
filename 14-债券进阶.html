@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>债券进阶</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="14">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 14 章 · 进阶篇</div>
+  <h1>债券进阶</h1>
+  <p class="lead">很多人以为债券很简单——借钱收利息而已。但债券价格每天都在变化，"稳健"的债券基金也可能一年亏损。理解债券定价，是理解整个金融体系的基础。</p>
+  <div class="meta"><span class="pill">⏱ 约 55 分钟</span><span class="pill">难度 ★★★★</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#pricing">债券定价原理</a></li>
+    <li><a href="#ytm">到期收益率（YTM）</a></li>
+    <li><a href="#seesaw">价格与利率的跷跷板</a></li>
+    <li><a href="#duration">久期</a></li>
+    <li><a href="#convexity">凸性</a></li>
+    <li><a href="#curve">收益率曲线</a></li>
+    <li><a href="#credit">信用风险与信用利差</a></li>
+    <li><a href="#return">债券基金收益的来源</a></li>
+    <li><a href="#tools">个人可用的债券工具</a></li>
+    <li><a href="#strategy">债券配置策略</a></li>
+  </ol></nav>
+
+  <h2 id="pricing">1. 债券定价原理</h2>
+  <p>债券的价格 = 未来所有利息和本金按市场利率折现的现值：</p>
+  <div class="formula">价格 = Σ 利息 ÷ (1 + y)<sup>t</sup> + 面值 ÷ (1 + y)<sup>n</sup><small>y 为市场要求的收益率（到期收益率）</small></div>
+  <div class="callout example">
+    <span class="title">例子</span>
+    <p>一只面值 100 元、票面利率 3%、期限 3 年、每年付息一次的债券。</p>
+    <ul>
+      <li>如果市场利率 = 3%：价格 = 100 元（平价）；</li>
+      <li>如果市场利率升到 4%：价格 = 3/1.04 + 3/1.04² + 103/1.04³ ≈ <strong>97.22 元</strong>（折价）；</li>
+      <li>如果市场利率降到 2%：价格 ≈ <strong>102.88 元</strong>（溢价）。</li>
+    </ul>
+  </div>
+  <p>直觉理解：如果新发行的债券利率是 4%，谁还愿意按 100 元买你手上只付 3% 的旧债券？只有降价才能卖出去。</p>
+
+  <h2 id="ytm">2. 到期收益率（YTM）</h2>
+  <p>YTM 是指以当前价格买入并持有到期，所能获得的年化收益率（假设利息按同样收益率再投资）。它是比较不同债券最核心的指标，<strong>不要只看票面利率</strong>。</p>
+  <ul>
+    <li>票面利率：发行时约定的利率，不会变；</li>
+    <li>当期收益率：年利息 ÷ 当前价格；</li>
+    <li>到期收益率：综合考虑利息和到期时价差的真实年化收益。</li>
+  </ul>
+  <p>上例中，以 97.22 元买入，YTM 就是 4%，高于票面的 3%，因为到期时还能拿回 100 元，多赚 2.78 元价差。</p>
+
+  <h2 id="seesaw">3. 价格与利率的跷跷板</h2>
+  <div class="formula">市场利率 ↑ → 债券价格 ↓ ；市场利率 ↓ → 债券价格 ↑</div>
+  <p>这就是为什么在利率快速上升时期，即使是国债基金也会亏损。例如 2022 年美联储激进加息，美国长期国债价格跌幅一度超过 30%，债券出现了罕见的大幅亏损。</p>
+
+  <h2 id="duration">4. 久期：衡量利率风险的尺子</h2>
+  <p><strong>久期（Duration）</strong>有两层含义：</p>
+  <ul>
+    <li><strong>麦考利久期</strong>：收回全部现金流的加权平均时间（以年为单位）；</li>
+    <li><strong>修正久期</strong>：利率变动 1% 时，债券价格大约变动的百分比。投资中最常用。</li>
+  </ul>
+  <div class="formula">价格变动 % ≈ − 修正久期 × 利率变动</div>
+  <div class="table-wrap"><table>
+    <tr><th>久期</th><th>利率上升 0.5%</th><th>利率上升 1%</th><th>利率下降 1%</th></tr>
+    <tr><td>1 年（短债）</td><td>−0.5%</td><td>−1%</td><td>+1%</td></tr>
+    <tr><td>5 年（中债）</td><td>−2.5%</td><td>−5%</td><td>+5%</td></tr>
+    <tr><td>10 年（长债）</td><td>−5%</td><td>−10%</td><td>+10%</td></tr>
+    <tr><td>20 年（超长债）</td><td>−10%</td><td>−20%</td><td>+20%</td></tr>
+  </table></div>
+  <h3>影响久期的因素</h3>
+  <ul>
+    <li><strong>期限越长</strong>，久期越长；</li>
+    <li><strong>票面利率越低</strong>，久期越长（零息债券的久期等于期限）；</li>
+    <li><strong>市场利率越低</strong>，久期越长。</li>
+  </ul>
+  <div class="callout tip"><span class="title">实用技巧</span><p>债券基金的季报和年报会披露组合久期。<strong>判断你能承受的利率风险，然后选择相应久期的基金</strong>：追求稳定选短债（久期 &lt; 1 年），愿意博取利率下行收益可选中长债。</p></div>
+
+  <h2 id="convexity">5. 凸性</h2>
+  <p>久期是线性近似，但债券价格与利率的关系实际上是一条<strong>向下凸的曲线</strong>。凸性描述了这种弯曲：</p>
+  <ul>
+    <li>利率下降时，价格涨得比久期预测的<strong>更多</strong>；</li>
+    <li>利率上升时，价格跌得比久期预测的<strong>更少</strong>。</li>
+  </ul>
+  <p>对普通债券持有人而言，凸性是一个"有利"的特性。利率变动越大，凸性的影响越明显。可赎回债券、部分 MBS 存在"负凸性"，对持有人不利。</p>
+
+  <h2 id="curve">6. 收益率曲线</h2>
+  <p>把不同期限国债的收益率连成一条线，就是收益率曲线。它的形状反映了市场对未来经济和利率的预期：</p>
+  <div class="table-wrap"><table>
+    <tr><th>形态</th><th>特征</th><th>通常含义</th></tr>
+    <tr><td>正常（向上倾斜）</td><td>长期利率 &gt; 短期利率</td><td>经济正常，投资者要求期限溢价</td></tr>
+    <tr><td>陡峭化</td><td>长短端利差扩大</td><td>经济复苏预期、通胀预期上升，或央行大幅降短端利率</td></tr>
+    <tr><td>平坦化</td><td>长短端利差收窄</td><td>央行加息、增长预期放缓</td></tr>
+    <tr><td>倒挂</td><td>短期利率 &gt; 长期利率</td><td>市场预期未来降息，历史上常被视为<strong>衰退前兆</strong>（尤其是美国 10 年 − 2 年 / 3 个月利差）</td></tr>
+  </table></div>
+  <div class="callout info"><span class="title">倒挂≠立即衰退</span><p>美债收益率曲线倒挂到衰退发生之间的时间差，历史上从几个月到两年不等，也存在"误报"。它是一个值得关注的信号，但不能单独作为交易依据。</p></div>
+
+  <h2 id="credit">7. 信用风险与信用利差</h2>
+  <div class="formula">信用债收益率 = 同期限国债收益率 + 信用利差</div>
+  <p>信用利差是投资者为承担违约风险和流动性风险要求的额外补偿。</p>
+  <h3>信用评级</h3>
+  <p>国际评级机构（标普、穆迪、惠誉）的评级中，BBB-（Baa3）及以上为<strong>投资级</strong>，以下为<strong>高收益级（垃圾债）</strong>。国内评级普遍偏高，AAA 级内部也存在明显分化，不能简单依赖评级。</p>
+  <h3>信用利差的周期性</h3>
+  <ul>
+    <li>经济好、信用宽松时：利差收窄，信用债表现好；</li>
+    <li>经济差、违约增多时：利差走阔，信用债下跌，国债往往上涨（"避险"）。</li>
+  </ul>
+  <div class="callout danger"><span class="title">高收益陷阱</span><p>收益率明显高于同类的债券或债基，往往意味着更高的信用风险。历史上，部分债券基金因"踩雷"违约债券，单日净值下跌超过 5%–10%。查看基金持仓的信用评级分布和行业集中度很重要。</p></div>
+
+  <h2 id="return">8. 债券基金收益的来源</h2>
+  <div class="table-wrap"><table>
+    <tr><th>来源</th><th>说明</th></tr>
+    <tr><td>票息收入</td><td>持有债券获得的利息，最稳定的收益来源</td></tr>
+    <tr><td>资本利得</td><td>利率下降带来的价格上涨（久期策略）</td></tr>
+    <tr><td>信用利差收窄</td><td>持有信用债，利差收窄时价格上涨</td></tr>
+    <tr><td>杠杆套息</td><td>通过质押回购借入短期资金买入更高收益的债券，赚取利差（放大收益和风险）</td></tr>
+    <tr><td>骑乘效应</td><td>在向上倾斜的收益率曲线上，随着债券剩余期限缩短，其收益率下降、价格上升</td></tr>
+    <tr><td>股票 / 可转债</td><td>二级债基、偏债混合基金的"增强"部分</td></tr>
+  </table></div>
+
+  <h2 id="tools">9. 个人可用的债券工具</h2>
+  <div class="grid">
+    <div class="card"><h4>储蓄国债</h4><p>银行柜台购买，无价格波动，适合持有到期。</p></div>
+    <div class="card"><h4>记账式国债 / 地方债</h4><p>券商账户场内交易，可随时买卖，价格随利率波动。</p></div>
+    <div class="card"><h4>国债 ETF / 政金债 ETF</h4><p>场内交易，低费率，透明，可选择不同期限（短融、5 年、10 年、30 年）。</p></div>
+    <div class="card"><h4>国债逆回购</h4><p>在券商 App 中把闲钱短期借出（1 天到 182 天），以国债作抵押，风险极低。月末、季末、年末利率常有阶段性上升。</p></div>
+    <div class="card"><h4>纯债基金 / 短债基金</h4><p>专业管理，适合普通投资者作为组合的稳定部分。</p></div>
+    <div class="card"><h4>可转债</h4><p>兼具债性和股性，见第 16 章。</p></div>
+  </div>
+
+  <h2 id="strategy">10. 债券配置策略</h2>
+  <ul>
+    <li><strong>阶梯策略（Ladder）</strong>：把资金平均分配到 1 年、2 年、3 年、4 年、5 年期的债券或存款中，每年到期一部分再滚动投入最长期限。兼顾流动性和收益，平滑利率风险；</li>
+    <li><strong>杠铃策略（Barbell）</strong>：同时持有极短期和长期债券，中间期限不配；</li>
+    <li><strong>子弹策略（Bullet）</strong>：集中配置在与资金使用时间匹配的期限上；</li>
+    <li><strong>久期匹配</strong>：用债券组合的久期匹配未来负债（如 5 年后的学费），可以基本锁定收益、抵消利率风险。</li>
+  </ul>
+  <div class="callout tip"><span class="title">债券在组合中的角色</span><p>对个人投资者而言，债券的主要作用不是追求高收益，而是：① 降低组合波动；② 在股市下跌时提供缓冲（高等级债券通常与股票负相关或低相关）；③ 提供再平衡的"弹药"。因此组合中的债券部分应以<strong>高信用等级</strong>为主，不要在债券部分冒信用风险。</p></div>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：一只债券基金久期为 4 年，如果市场利率上升 0.8%，基金净值大约会变化多少？</div>
+    <details><summary>查看答案</summary><p>约 −4 × 0.8% = −3.2%（未考虑票息收入和凸性）。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：同样是 AAA 评级的两只企业债，一只收益率 2.3%，另一只 4.5%，为什么？</div>
+    <details><summary>查看答案</summary><p>市场认为后者的实际信用风险或流动性风险明显更高，评级并不能反映全部风险。高收益是对高风险的补偿。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

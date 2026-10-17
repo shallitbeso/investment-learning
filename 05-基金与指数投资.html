@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基金与指数投资</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="05">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 05 章</div>
+  <h1>基金与指数投资</h1>
+  <p class="lead">对绝大多数普通人来说，低成本的指数基金是参与股市最简单、最有效的方式。这一章会告诉你为什么，以及如何挑选和使用基金。</p>
+  <div class="meta"><span class="pill">⏱ 约 45 分钟</span><span class="pill">难度 ★★☆</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#basic">基金如何运作</a></li>
+    <li><a href="#types">基金的分类方式</a></li>
+    <li><a href="#active">主动基金 vs 指数基金</a></li>
+    <li><a href="#etf">ETF、联接基金与 LOF</a></li>
+    <li><a href="#fee">基金的费用</a></li>
+    <li><a href="#ac">A 类与 C 类份额</a></li>
+    <li><a href="#choose">如何挑选指数基金</a></li>
+    <li><a href="#choose-active">如何挑选主动基金</a></li>
+    <li><a href="#dca">定投：普通人的利器</a></li>
+    <li><a href="#trade">申购赎回规则</a></li>
+  </ol></nav>
+
+  <h2 id="basic">1. 基金如何运作</h2>
+  <p>基金把大量投资者的钱汇集起来，交给基金公司管理，资金则存放在<strong>托管银行</strong>，基金公司只能下达投资指令，不能挪用资金。这种"管钱的人"和"保管钱的人"分离的机制，保障了资金安全。</p>
+  <p>但"资金安全"不等于"不会亏损"——基金买的股票下跌，基金净值也会下跌。</p>
+  <div class="formula">基金净值 = 基金总资产 ÷ 基金总份额</div>
+  <p>净值高低<strong>不代表贵或便宜</strong>。净值 3 元的基金并不比净值 1 元的"贵"，你买到的份额少一些而已，未来涨跌幅才是关键。</p>
+
+  <h2 id="types">2. 基金的分类方式</h2>
+  <div class="table-wrap"><table>
+    <tr><th>维度</th><th>类型</th></tr>
+    <tr><td>按投资对象</td><td>货币基金、债券基金、混合基金、股票基金、FOF（基金中的基金）、QDII（海外）、商品基金（黄金等）</td></tr>
+    <tr><td>按管理方式</td><td>主动管理型（基金经理选股）、被动指数型（复制指数）、指数增强型（在指数基础上增强）</td></tr>
+    <tr><td>按交易方式</td><td>场外基金（在银行、App、基金公司按净值申购赎回）、场内基金（在证券交易所像股票一样交易，如 ETF、LOF）</td></tr>
+    <tr><td>按运作方式</td><td>开放式（随时申购赎回）、封闭式 / 定期开放（期间不能赎回）、持有期基金（每笔需持有一段时间）</td></tr>
+  </table></div>
+
+  <h2 id="active">3. 主动基金 vs 指数基金</h2>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>主动基金</th><th>指数基金</th></tr>
+    <tr><td>目标</td><td>战胜市场</td><td>复制市场</td></tr>
+    <tr><td>依赖</td><td>基金经理能力</td><td>指数规则，透明</td></tr>
+    <tr><td>费用</td><td>较高（管理费常见 1.2% 或更低）</td><td>低（管理费常见 0.15%–0.5%）</td></tr>
+    <tr><td>风险</td><td>可能大幅跑输；基金经理离职、风格漂移</td><td>与市场同涨同跌，不会跑输太多</td></tr>
+    <tr><td>适合</td><td>愿意研究基金经理的人</td><td>绝大多数普通投资者</td></tr>
+  </table></div>
+  <div class="callout info">
+    <span class="title">为什么指数基金是好起点</span>
+    <ul>
+      <li><strong>长期数据</strong>：在美国等成熟市场，大多数主动基金长期跑输对应指数。A 股过去主动基金表现相对较好，但近年来超额收益明显下降，挑选难度越来越大；</li>
+      <li><strong>巴菲特的建议</strong>：他多次公开建议普通投资者购买低成本的标普 500 指数基金；</li>
+      <li><strong>省心</strong>：不必担心基金经理跳槽、踩雷或风格漂移。</li>
+    </ul>
+  </div>
+
+  <h2 id="etf">4. ETF、联接基金与 LOF</h2>
+  <div class="grid">
+    <div class="card"><h4>ETF（交易型开放式指数基金）</h4><p>在证券交易所上市，用股票账户买卖，价格实时变化，费率最低。需要开通证券账户。</p></div>
+    <div class="card"><h4>ETF 联接基金</h4><p>场外基金，把大部分资金投向对应 ETF。可以在支付宝、银行等平台按净值申购，支持自动定投，适合新手。</p></div>
+    <div class="card"><h4>LOF（上市型开放式基金）</h4><p>既可场外申购赎回，也可场内交易。注意场内价格可能偏离净值，出现溢价。</p></div>
+  </div>
+  <div class="callout warn">
+    <span class="title">警惕溢价</span>
+    <p>场内基金（ETF、LOF）的交易价格由供需决定，可能高于实际净值。部分热门的跨境 ETF、商品 LOF 曾出现 10% 以上的溢价，高溢价买入相当于多付了钱，溢价回落时会亏损。买入前查看"溢价率"或"IOPV（参考净值）"。</p>
+  </div>
+
+  <h2 id="fee">5. 基金的费用</h2>
+  <div class="table-wrap"><table>
+    <tr><th>费用</th><th>何时收取</th><th>说明</th></tr>
+    <tr><td>申购费</td><td>买入时</td><td>一次性；很多平台会打折（如 1 折）</td></tr>
+    <tr><td>赎回费</td><td>卖出时</td><td>按持有时间递减；<strong>持有不满 7 天通常收取 1.5% 惩罚性赎回费</strong></td></tr>
+    <tr><td>管理费</td><td>每天从净值中扣除</td><td>付给基金公司，按年费率计提，你看不到单独扣款</td></tr>
+    <tr><td>托管费</td><td>每天从净值中扣除</td><td>付给托管银行</td></tr>
+    <tr><td>销售服务费</td><td>每天从净值中扣除</td><td>主要是 C 类份额收取</td></tr>
+  </table></div>
+  <p>管理费和托管费是"隐形"的，但长期影响最大（回顾第 02 章"成本的威力"）。ETF 一般没有申购赎回费，但场内交易需付券商佣金。</p>
+
+  <h2 id="ac">6. A 类与 C 类份额怎么选</h2>
+  <p>同一只基金常常有 A、C 两种份额，投资的东西完全相同，只是收费方式不同：</p>
+  <ul>
+    <li><strong>A 类</strong>：收申购费，不收销售服务费，持有时间长了赎回费可降为 0；</li>
+    <li><strong>C 类</strong>：不收申购费，按日收取销售服务费（常见每年 0.2%–0.4%），持有满 7 天或 30 天后通常免赎回费。</li>
+  </ul>
+  <div class="callout tip">
+    <span class="title">经验法则</span>
+    <p><strong>计划持有 1–2 年以内选 C 类，更长期持有选 A 类。</strong>具体可以计算：A 类申购费（打折后）÷ C 类年销售服务费 = 盈亏平衡年数。例如 A 类申购费 0.12%，C 类服务费 0.25%/年 → 约半年后 A 类更划算。</p>
+  </div>
+
+  <h2 id="choose">7. 如何挑选指数基金</h2>
+  <h3>第一步：选指数</h3>
+  <ul>
+    <li><strong>宽基指数优先</strong>：沪深 300、中证 A500、中证 500、标普 500、纳斯达克 100 等，覆盖面广、行业分散；</li>
+    <li><strong>行业 / 主题指数慎选</strong>：如医药、新能源、半导体、军工，波动更大，需要你对行业有判断；</li>
+    <li><strong>策略指数</strong>：如红利指数（高股息）、低波动指数、价值指数等，属于"Smart Beta"，可作为补充（第 15 章详解）。</li>
+  </ul>
+  <h3>第二步：在跟踪同一指数的基金中挑选</h3>
+  <div class="table-wrap"><table>
+    <tr><th>指标</th><th>看什么</th></tr>
+    <tr><td>费率</td><td>管理费 + 托管费越低越好</td></tr>
+    <tr><td>跟踪误差</td><td>越小越好，说明复制指数越精准（一般 &lt; 2%）</td></tr>
+    <tr><td>规模</td><td>不宜太小（低于 5000 万元有清盘风险），场内 ETF 规模大、成交活跃更好</td></tr>
+    <tr><td>成立时间</td><td>运作时间长，历史记录更可信</td></tr>
+    <tr><td>基金公司</td><td>指数产品线丰富、运营经验足的公司更可靠</td></tr>
+  </table></div>
+  <p>基金的详细信息可在基金公司官网、天天基金、支付宝基金页面的"档案"中查看；最权威的是基金<strong>招募说明书和定期报告</strong>。</p>
+
+  <h2 id="choose-active">8. 如何挑选主动基金</h2>
+  <p>如果你想尝试主动基金，可以参考以下要点：</p>
+  <ol>
+    <li><strong>看基金经理而非基金</strong>：任职年限最好 5 年以上，经历过完整牛熊；</li>
+    <li><strong>看长期业绩</strong>：3 年、5 年业绩在同类中稳定排在前 1/3，而不是只看近 1 年；</li>
+    <li><strong>看风险指标</strong>：最大回撤、波动率、夏普比率（第 15 章）；</li>
+    <li><strong>看投资风格</strong>：读基金季报中的"投资策略和运作分析"，判断其理念是否清晰、言行是否一致；</li>
+    <li><strong>看持仓集中度和换手率</strong>：前十大持仓占比、行业集中度，换手率过高意味着交易成本高；</li>
+    <li><strong>看规模</strong>：规模过大（如数百亿）可能影响灵活性。</li>
+  </ol>
+  <div class="callout danger">
+    <span class="title">最常见的错误</span>
+    <p>买"去年的冠军基金"。每年业绩第一的基金往往是重仓某一热门行业，次年业绩大幅下滑的情况非常普遍。不要被"近一年收益 100%"的宣传吸引。</p>
+  </div>
+
+  <h2 id="dca">9. 定投：普通人的利器</h2>
+  <p>基金定投是指<strong>在固定时间、投入固定金额</strong>购买同一只基金，例如每月 10 号投入 1000 元。</p>
+  <h3>定投的好处</h3>
+  <ul>
+    <li><strong>平摊成本</strong>：价格低时买到更多份额，价格高时买到更少份额，平均成本相对平滑（"微笑曲线"）；</li>
+    <li><strong>克服人性</strong>：不需要判断时机，避免追涨杀跌；</li>
+    <li><strong>强制储蓄</strong>：与工资节奏匹配，养成习惯。</li>
+  </ul>
+  <div class="callout example">
+    <span class="title">例子：定投如何平摊成本</span>
+    <div class="table-wrap"><table>
+      <tr><th>月份</th><th>投入</th><th>净值</th><th>买到份额</th></tr>
+      <tr><td>1 月</td><td>1000</td><td>1.00</td><td>1000</td></tr>
+      <tr><td>2 月</td><td>1000</td><td>0.80</td><td>1250</td></tr>
+      <tr><td>3 月</td><td>1000</td><td>0.50</td><td>2000</td></tr>
+      <tr><td>4 月</td><td>1000</td><td>0.80</td><td>1250</td></tr>
+      <tr><td>5 月</td><td>1000</td><td>1.00</td><td>1000</td></tr>
+    </table></div>
+    <p>净值最终回到 1.00，没有涨。但你投入 5000 元，共有 6500 份，市值 6500 元，<strong>赚了 30%</strong>。平均成本只有 0.77 元。</p>
+  </div>
+  <h3>定投的局限（要诚实地了解）</h3>
+  <ul>
+    <li>定投不能保证赚钱。如果市场长期单边下跌，定投也会亏损；</li>
+    <li>随着投入累积，后期每笔新投入对平均成本的影响越来越小，"钝化"效应明显，此时更重要的是资产配置和止盈策略；</li>
+    <li>如果你已经有一大笔钱，研究表明一次性投入在长期上涨市场中往往收益更高，但心理压力更大。折中方法是把大额资金分成 6–12 份，在半年到一年内分批投入。</li>
+  </ul>
+  <h3>定投实操要点</h3>
+  <ol>
+    <li>选择波动较大但长期向上的宽基指数（沪深 300、中证 500、标普 500 等）；</li>
+    <li>金额以月结余的一部分为准，<strong>保证能坚持 3–5 年以上</strong>；</li>
+    <li>周定投和月定投长期效果差别不大，按工资节奏选月定投即可；</li>
+    <li>可进阶为"估值定投"：低估时多投，高估时少投或停投；</li>
+    <li>设定止盈规则，例如收益率达到 30%–50% 或估值进入高位时分批卖出。</li>
+  </ol>
+  <p>去 <a href="工具-投资计算器.html#dca">定投计算器</a> 试试你的定投计划。</p>
+
+  <h2 id="trade">10. 场外基金申购赎回规则</h2>
+  <ul>
+    <li><strong>未知价原则</strong>：交易日 15:00 前申购，按当天收盘后计算的净值成交；15:00 后申购，算作下一个交易日；</li>
+    <li><strong>份额确认</strong>：一般 T+1 日确认份额，T+2 日可查看收益；</li>
+    <li><strong>赎回到账</strong>：股票 / 债券基金一般 T+1 到 T+4 个工作日到账，QDII 基金可能更久（T+7 甚至更长）；</li>
+    <li><strong>节假日</strong>：节假日前要注意资金安排，长假期间不计算收益（货币基金除外）。</li>
+  </ul>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：基金 A 净值 3.5 元，基金 B 净值 1.0 元，应该买"便宜"的 B 吗？</div>
+    <details><summary>查看答案</summary><p>不应该以净值高低判断贵贱。净值只反映成立以来的累计表现，未来收益取决于基金投资了什么、管理得如何。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：计划持有 3 个月的基金，选 A 类还是 C 类？</div>
+    <details><summary>查看答案</summary><p>通常选 C 类，免申购费，持有超过 7 天或 30 天后赎回费也多为 0。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

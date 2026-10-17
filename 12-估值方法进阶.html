@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>估值方法进阶</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="12">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 12 章 · 进阶篇</div>
+  <h1>估值方法进阶</h1>
+  <p class="lead">好公司不等于好投资——买得太贵，好公司也会让你多年不赚钱。估值是回答"这家公司值多少钱"的方法论。它不是精确科学，而是一套帮助你理性思考的框架。</p>
+  <div class="meta"><span class="pill">⏱ 约 70 分钟</span><span class="pill">难度 ★★★★</span></div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#principle">估值的本质</a></li>
+    <li><a href="#abs">绝对估值：DCF 模型</a></li>
+    <li><a href="#ddm">股利折现模型（DDM）</a></li>
+    <li><a href="#rel">相对估值：倍数体系</a></li>
+    <li><a href="#peg">PEG 与增长的价格</a></li>
+    <li><a href="#ev">EV/EBITDA 与企业价值</a></li>
+    <li><a href="#sector">分行业估值方法</a></li>
+    <li><a href="#reverse">反向 DCF：市场在定价什么</a></li>
+    <li><a href="#mos">安全边际与情景分析</a></li>
+    <li><a href="#market">市场整体估值</a></li>
+    <li><a href="#traps">估值的常见陷阱</a></li>
+  </ol></nav>
+
+  <h2 id="principle">1. 估值的本质</h2>
+  <div class="callout info"><span class="title">核心定义</span><p><strong>任何资产的内在价值，等于它在剩余寿命内产生的全部现金流，按适当的折现率折算到今天的现值之和。</strong>——这是从约翰·伯尔·威廉姆斯到巴菲特一脉相承的思想。</p></div>
+  <p>估值需要回答三个问题：</p>
+  <ol>
+    <li>未来能产生多少现金？（取决于商业模式和竞争力）</li>
+    <li>能持续多久？（取决于护城河）</li>
+    <li>这些现金有多确定？（决定折现率的高低）</li>
+  </ol>
+  <p>估值方法分两大类：<strong>绝对估值</strong>（直接计算内在价值，如 DCF）和<strong>相对估值</strong>（与可比对象比较，如 PE、PB）。实践中两者结合使用。</p>
+
+  <h2 id="abs">2. 绝对估值：DCF 现金流折现模型</h2>
+  <h3>基本公式</h3>
+  <div class="formula">企业价值 = Σ FCF<sub>t</sub> ÷ (1 + r)<sup>t</sup> + 终值 ÷ (1 + r)<sup>n</sup><small>FCF：每年自由现金流；r：折现率；n：预测期年数</small></div>
+  <h3>两阶段 DCF 的步骤</h3>
+  <ol>
+    <li><strong>预测期（通常 5–10 年）</strong>：逐年预测自由现金流。可以从当前 FCF 出发，假设一个增长率；</li>
+    <li><strong>终值</strong>：预测期之后，假设公司以一个稳定的低增长率 g 永续增长：
+      <div class="formula">终值 = FCF<sub>n+1</sub> ÷ (r − g)<small>永续增长率 g 一般取 2%–3%，不应超过长期名义 GDP 增长率</small></div></li>
+    <li><strong>折现</strong>：把所有现金流折算为现值并求和，得到<strong>企业价值（EV）</strong>；</li>
+    <li><strong>股权价值</strong> = 企业价值 + 现金及等价物 − 有息负债 − 少数股东权益；</li>
+    <li><strong>每股价值</strong> = 股权价值 ÷ 总股本。</li>
+  </ol>
+  <h3>折现率怎么定</h3>
+  <p>严格方法是 <strong>WACC（加权平均资本成本）</strong>：</p>
+  <div class="formula">WACC = E/(D+E) × 股权成本 + D/(D+E) × 债务成本 × (1 − 税率)</div>
+  <p>股权成本常用 <strong>CAPM 模型</strong>：</p>
+  <div class="formula">股权成本 = 无风险利率 + β × 股权风险溢价（ERP）</div>
+  <p>个人投资者的简化做法：直接用一个<strong>"要求回报率"</strong>作为折现率，比如 8%–12%。公司越稳定、确定性越高，折现率越低；越不确定，折现率越高。</p>
+  <div class="callout example">
+    <span class="title">简化 DCF 示例</span>
+    <p>某公司当前自由现金流 10 亿元，假设未来 5 年每年增长 10%，之后永续增长 3%，折现率 9%，净现金 20 亿元，总股本 10 亿股。</p>
+    <div class="table-wrap"><table>
+      <tr><th>年份</th><th>FCF（亿）</th><th>折现系数</th><th>现值（亿）</th></tr>
+      <tr><td>1</td><td>11.00</td><td>0.917</td><td>10.09</td></tr>
+      <tr><td>2</td><td>12.10</td><td>0.842</td><td>10.18</td></tr>
+      <tr><td>3</td><td>13.31</td><td>0.772</td><td>10.28</td></tr>
+      <tr><td>4</td><td>14.64</td><td>0.708</td><td>10.37</td></tr>
+      <tr><td>5</td><td>16.11</td><td>0.650</td><td>10.47</td></tr>
+      <tr><td colspan="3">预测期现值合计</td><td>51.39</td></tr>
+      <tr><td colspan="3">终值 = 16.11 × 1.03 ÷ (9% − 3%) = 276.5，折现后</td><td>179.69</td></tr>
+      <tr><td colspan="3"><strong>企业价值</strong></td><td><strong>231.1</strong></td></tr>
+    </table></div>
+    <p>股权价值 = 231.1 + 20 = 251.1 亿元，每股价值约 <strong>25.1 元</strong>。注意：终值占了总价值的约 78%——这是 DCF 的普遍特征，也是它最大的弱点。</p>
+  </div>
+  <h3>DCF 的敏感性</h3>
+  <p>同一个例子，只调整两个参数：</p>
+  <div class="table-wrap"><table>
+    <tr><th>折现率 \ 永续增长</th><th>2%</th><th>3%</th><th>4%</th></tr>
+    <tr><td>8%</td><td>约 25.9</td><td>约 29.9</td><td>约 35.8</td></tr>
+    <tr><td>9%</td><td>约 22.4</td><td>约 25.1</td><td>约 28.9</td></tr>
+    <tr><td>10%</td><td>约 19.8</td><td>约 21.7</td><td>约 24.3</td></tr>
+  </table></div>
+  <p>两个假设各变动 1 个百分点，结果就从约 20 元变到约 36 元，相差近一倍。因此 <strong>DCF 的价值不在于得出一个精确数字，而在于迫使你思考：这个价格隐含了什么假设？这些假设合理吗？</strong>你可以在 <a href="工具-投资计算器.html#dcf">DCF 计算器</a> 中自己尝试。</p>
+
+  <h2 id="ddm">3. 股利折现模型（DDM）</h2>
+  <p>对于分红稳定的成熟企业（公用事业、银行），可以用分红代替自由现金流。最简单的是戈登增长模型：</p>
+  <div class="formula">每股价值 = 下一年每股股息 ÷ (要求回报率 − 股息增长率)</div>
+  <div class="callout example"><span class="title">例子</span><p>某水电公司明年预计每股派息 1.0 元，股息年增长 3%，要求回报率 7%，则每股价值 = 1.0 ÷ (7% − 3%) = 25 元。</p></div>
+  <p>反过来，也可以推出<strong>预期回报率 ≈ 股息率 + 股息增长率</strong>，这对评估高股息股票很实用。</p>
+
+  <h2 id="rel">4. 相对估值：倍数体系</h2>
+  <div class="table-wrap"><table>
+    <tr><th>倍数</th><th>公式</th><th>适用</th><th>不适用</th></tr>
+    <tr><td>PE（市盈率）</td><td>市值 ÷ 净利润</td><td>盈利稳定的成熟企业</td><td>亏损企业、周期股、利润含大量非经常项目</td></tr>
+    <tr><td>PB（市净率）</td><td>市值 ÷ 净资产</td><td>银行、保险、重资产周期行业</td><td>轻资产公司（软件、品牌消费品）</td></tr>
+    <tr><td>PS（市销率）</td><td>市值 ÷ 营收</td><td>高增长但未盈利的公司</td><td>不同利润率的公司之间比较</td></tr>
+    <tr><td>EV/EBITDA</td><td>企业价值 ÷ EBITDA</td><td>资本密集型、负债差异大的公司比较</td><td>银行等金融公司</td></tr>
+    <tr><td>EV/FCF 或 FCF 收益率</td><td>FCF ÷ 市值</td><td>现金流稳定的公司</td><td>资本开支剧烈波动的公司</td></tr>
+    <tr><td>股息率</td><td>每股股息 ÷ 股价</td><td>稳定分红企业</td><td>不分红的成长企业</td></tr>
+  </table></div>
+  <h3>PE 的几种口径</h3>
+  <ul>
+    <li><strong>静态 PE（LYR）</strong>：用上一完整年度利润；</li>
+    <li><strong>滚动 PE（TTM）</strong>：用最近四个季度利润，最常用；</li>
+    <li><strong>动态 PE（Forward）</strong>：用分析师预测的未来利润，依赖预测准确性。</li>
+  </ul>
+  <h3>PE 的倒数：盈利收益率</h3>
+  <div class="formula">盈利收益率 = 1 ÷ PE = 净利润 ÷ 市值</div>
+  <p>PE 为 20 倍，盈利收益率为 5%。可以和国债收益率对比——这就是著名的"<strong>股债性价比</strong>"（风险溢价）指标：盈利收益率 − 10 年期国债收益率，差值越大，股票相对债券越有吸引力。</p>
+
+  <h2 id="peg">5. PEG 与"增长的价格"</h2>
+  <div class="formula">PEG = PE ÷ (未来几年净利润年均增长率 × 100)</div>
+  <ul>
+    <li>PEG ≈ 1：估值与增长匹配（彼得·林奇的经验标准）；</li>
+    <li>PEG &lt; 1：可能被低估；</li>
+    <li>PEG &gt; 1.5–2：可能偏贵。</li>
+  </ul>
+  <div class="callout warn"><span class="title">局限</span><p>PEG 依赖增长率预测，而高增长往往难以持续；它也没有考虑增长的质量（ROIC）。增长 30% 但每年都要大量融资的公司，和增长 15% 但自由现金流充沛的公司，价值完全不同。</p></div>
+
+  <h2 id="ev">6. 企业价值（EV）与 EV/EBITDA</h2>
+  <div class="formula">EV = 总市值 + 有息负债 + 少数股东权益 − 现金及等价物</div>
+  <p>EV 代表"买下整个公司"的真实代价：你不仅要付股价，还要承担它的债务，但能拿到它的现金。两家市值相同的公司，一家负债 500 亿，一家净现金 500 亿，价值显然不同。PE 忽略了这一点，EV/EBITDA 则不会。</p>
+
+  <h2 id="sector">7. 分行业估值方法</h2>
+  <div class="table-wrap"><table>
+    <tr><th>行业类型</th><th>主要方法</th><th>说明</th></tr>
+    <tr><td>稳定消费、公用事业</td><td>PE、DCF、DDM、股息率</td><td>现金流可预测性高</td></tr>
+    <tr><td>银行</td><td>PB、PB-ROE 框架、股息率</td><td>合理 PB ≈ (ROE − g) ÷ (要求回报率 − g)</td></tr>
+    <tr><td>保险</td><td>PEV（市值 ÷ 内含价值）</td><td>利润受会计准则影响大</td></tr>
+    <tr><td>周期行业</td><td>PB、周期平均利润 PE、重置成本</td><td>用"正常化"利润而非当期利润</td></tr>
+    <tr><td>高成长科技</td><td>PS、EV/Sales、远期 PE、DCF</td><td>关注增长持续性和利润率天花板</td></tr>
+    <tr><td>未盈利生物医药</td><td>管线价值（rNPV）</td><td>按成功概率加权各药物未来现金流</td></tr>
+    <tr><td>多元化集团</td><td>分部加总（SOTP）</td><td>各业务分别估值后相加，常见"控股公司折价"</td></tr>
+    <tr><td>房地产、REITs</td><td>NAV（净资产重估）、分派收益率</td><td>关注资产质量与重估价值</td></tr>
+  </table></div>
+  <div class="callout info"><span class="title">PB-ROE 的直觉</span><p>一家 ROE 稳定在 15% 的银行，如果你要求 10% 的回报，它的合理 PB 大于 1；一家 ROE 只有 8% 的银行，合理 PB 应低于 1。"破净"不一定便宜，要看 ROE 能否覆盖资本成本。</p></div>
+
+  <h2 id="reverse">8. 反向 DCF：市场在定价什么</h2>
+  <p>与其费力预测未来，不如反过来问：<strong>以当前股价，市场隐含了多高的增长预期？</strong></p>
+  <ol>
+    <li>以当前市值作为已知结果；</li>
+    <li>固定折现率和永续增长率；</li>
+    <li>求解预测期内需要多高的 FCF 增长率才能支撑当前股价。</li>
+  </ol>
+  <p>如果答案是"未来 10 年每年增长 25%"，而公司过去 5 年只增长 10%，那么当前价格可能过于乐观。这种方法比正向 DCF 更客观，迈克尔·莫布森在《预期投资》中对此有详细阐述。</p>
+
+  <h2 id="mos">9. 安全边际与情景分析</h2>
+  <p>格雷厄姆提出的<strong>安全边际</strong>：只在价格明显低于你估计的内在价值时买入，用折扣来容纳估算错误和意外。</p>
+  <div class="formula">安全边际 = (内在价值 − 价格) ÷ 内在价值<small>常见要求：30%–50%；确定性越低，要求越高</small></div>
+  <h3>情景分析</h3>
+  <p>不要只做一个估值，而是做三个：</p>
+  <div class="table-wrap"><table>
+    <tr><th>情景</th><th>假设</th><th>每股价值</th><th>概率</th></tr>
+    <tr><td>悲观</td><td>增长停滞，利润率下降</td><td>18 元</td><td>25%</td></tr>
+    <tr><td>中性</td><td>延续历史趋势</td><td>28 元</td><td>50%</td></tr>
+    <tr><td>乐观</td><td>新业务成功</td><td>45 元</td><td>25%</td></tr>
+    <tr><td colspan="2"><strong>概率加权价值</strong></td><td colspan="2"><strong>29.75 元</strong></td></tr>
+  </table></div>
+  <p>如果当前股价 20 元：下行空间（到 18 元）约 10%，上行空间（到 45 元）约 125%——这是<strong>不对称的好机会</strong>。投资高手寻找的就是这种"下跌有限、上涨可观"的赔率。</p>
+
+  <h2 id="market">10. 市场整体估值</h2>
+  <p>除了个股，也可以评估整个市场的冷热：</p>
+  <ul>
+    <li><strong>指数 PE / PB 历史百分位</strong>：低于 20%–30% 分位通常被视为低估，高于 70%–80% 偏高估；</li>
+    <li><strong>股债性价比（ERP）</strong>：指数盈利收益率 − 10 年期国债收益率；</li>
+    <li><strong>巴菲特指标</strong>：股市总市值 ÷ GDP；</li>
+    <li><strong>席勒 PE（CAPE）</strong>：用过去 10 年经通胀调整的平均盈利计算 PE，平滑周期影响；</li>
+    <li><strong>情绪指标</strong>：成交额、新开户数、融资余额、新基金发行规模。</li>
+  </ul>
+  <div class="callout warn"><span class="title">提醒</span><p>估值能较好地预测<strong>长期（5–10 年）</strong>回报，但几乎无法预测<strong>短期</strong>涨跌。高估的市场可以持续高估很多年，低估的也可以更低。</p></div>
+
+  <h2 id="traps">11. 估值的常见陷阱</h2>
+  <ul>
+    <li><strong>价值陷阱</strong>：看似便宜（低 PE、低 PB），实则业务在持续衰退，越跌越"便宜"；</li>
+    <li><strong>周期陷阱</strong>：周期股在景气顶点利润最高、PE 最低，看起来最便宜，实则最危险；</li>
+    <li><strong>增长幻觉</strong>：把短期高增长线性外推；</li>
+    <li><strong>精确性错觉</strong>：DCF 算到小数点后两位，却忽视假设的不确定性；</li>
+    <li><strong>忽略股权稀释</strong>：大量股权激励、可转债转股会摊薄每股价值；</li>
+    <li><strong>用错口径</strong>：用含一次性收益的净利润算 PE，或忽视公司的大额负债。</li>
+  </ul>
+  <div class="callout tip"><span class="title">实战练习</span><p>在三份财报精读中，我们用本章的方法对美的、腾讯、苹果做了简单的估值思考，可以对照学习。</p></div>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：用戈登模型计算：明年股息 2 元，股息增长率 4%，要求回报率 9%，每股价值多少？</div>
+    <details><summary>查看答案</summary><p>2 ÷ (9% − 4%) = 40 元。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：一家航运公司今年运价暴涨，PE 只有 3 倍，是不是很便宜？</div>
+    <details><summary>查看答案</summary><p>不一定。航运是强周期行业，当前利润处于景气高点，不可持续。应该用周期平均利润或 PB 来估值。低 PE 可能恰恰是周期顶部的信号。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>衍生品与可转债</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+</head>
+<body data-page="16">
+<div class="layout">
+<aside class="sidebar"></aside>
+<main><article class="content">
+  <div class="chapter-label">第 16 章 · 进阶篇</div>
+  <h1>衍生品与可转债</h1>
+  <p class="lead">衍生品的价值来源于其他资产（股票、指数、商品等）。它们是强大的风险管理工具，也是导致巨额亏损的常见原因。这一章的目标是让你<strong>理解原理和风险</strong>，而不是鼓励参与。</p>
+  <div class="meta"><span class="pill">⏱ 约 60 分钟</span><span class="pill">难度 ★★★★</span><span class="pill">⚠ 高风险</span></div>
+
+  <div class="callout danger">
+    <span class="title">先读这段</span>
+    <p>期货和期权的交易者中，长期亏损的比例很高。参与前需要：① 完全理解产品机制；② 有足够的风险承受能力和闲置资金；③ 通过券商 / 期货公司的适当性评估（期权、股指期货有资金和经验门槛）。<strong>如果只是为了"以小博大"，请不要参与。</strong></p>
+  </div>
+
+  <nav class="toc"><strong>本章内容</strong><ol>
+    <li><a href="#overview">衍生品概览</a></li>
+    <li><a href="#futures">期货</a></li>
+    <li><a href="#options">期权基础</a></li>
+    <li><a href="#payoff">四种基本头寸</a></li>
+    <li><a href="#pricing">期权价格的构成</a></li>
+    <li><a href="#greeks">希腊字母</a></li>
+    <li><a href="#strategies">常见期权策略</a></li>
+    <li><a href="#structured">结构化产品：以"雪球"为例</a></li>
+    <li><a href="#leveraged">杠杆与反向 ETF</a></li>
+    <li><a href="#cb">可转债</a></li>
+  </ol></nav>
+
+  <h2 id="overview">1. 衍生品概览</h2>
+  <div class="table-wrap"><table>
+    <tr><th>类型</th><th>本质</th><th>国内例子</th></tr>
+    <tr><td>远期</td><td>约定未来以某价格买卖，非标准化，场外交易</td><td>企业外汇远期</td></tr>
+    <tr><td>期货</td><td>标准化的远期合约，交易所交易，保证金制度</td><td>商品期货、股指期货（IF/IH/IC/IM）、国债期货</td></tr>
+    <tr><td>期权</td><td>未来以约定价格买卖的<strong>权利</strong></td><td>上证 50ETF、沪深 300ETF 期权等，商品期权</td></tr>
+    <tr><td>互换</td><td>交换两组现金流</td><td>利率互换（机构使用）</td></tr>
+  </table></div>
+  <p>衍生品的三大用途：<strong>套期保值</strong>（降低风险）、<strong>投机</strong>（承担风险博取收益）、<strong>套利</strong>（利用定价偏差）。</p>
+
+  <h2 id="futures">2. 期货</h2>
+  <h3>核心机制</h3>
+  <ul>
+    <li><strong>保证金交易</strong>：只需缴纳合约价值的一部分（如 8%–15%）即可交易，相当于 7–12 倍杠杆；</li>
+    <li><strong>双向交易</strong>：可以做多（买入）也可以做空（卖出）；</li>
+    <li><strong>T+0</strong>：当天可以多次开仓平仓；</li>
+    <li><strong>每日无负债结算</strong>：每天收盘后按结算价计算盈亏，亏损直接从保证金扣除。保证金不足时需追加，否则会被<strong>强制平仓</strong>；</li>
+    <li><strong>到期交割</strong>：合约有到期日，个人投资者一般需在交割月前平仓。</li>
+  </ul>
+  <div class="callout example"><span class="title">杠杆的威力</span><p>沪深 300 股指期货一手合约价值约为指数点位 × 300 元。假设指数 4000 点，一手价值 120 万元，保证金按 12% 计算约 14.4 万元。如果指数下跌 5%，亏损 6 万元，相当于保证金亏了约 42%；下跌 10%，亏损 12 万元，保证金几乎亏光。</p></div>
+  <h3>套期保值的例子</h3>
+  <p>一个持有 100 万元沪深 300 成分股组合的投资者，担心短期大跌但不想卖出股票，可以卖出等值的股指期货。若市场下跌，股票亏损由期货盈利弥补；若上涨，股票盈利被期货亏损抵消。代价是放弃了上涨收益。</p>
+  <h3>基差与升贴水</h3>
+  <div class="formula">基差 = 现货价格 − 期货价格</div>
+  <p>期货价格低于现货叫"贴水"，高于现货叫"升水"。股指期货长期贴水在中证 500、中证 1000 中较为常见，这也是部分"指数增强"策略的收益来源。</p>
+
+  <h2 id="options">3. 期权基础</h2>
+  <ul>
+    <li><strong>看涨期权（Call）</strong>：在到期日以行权价<strong>买入</strong>标的的权利；</li>
+    <li><strong>看跌期权（Put）</strong>：在到期日以行权价<strong>卖出</strong>标的的权利；</li>
+    <li><strong>买方</strong>：支付权利金，获得权利，最大亏损 = 权利金；</li>
+    <li><strong>卖方</strong>：收取权利金，承担义务，需缴纳保证金，最大亏损可能很大；</li>
+    <li><strong>欧式期权</strong>：只能在到期日行权（国内 ETF 期权）；<strong>美式期权</strong>：到期前任何时间都可行权。</li>
+  </ul>
+  <h3>实值、平值、虚值</h3>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>看涨期权</th><th>看跌期权</th></tr>
+    <tr><td>实值（ITM）</td><td>标的价格 &gt; 行权价</td><td>标的价格 &lt; 行权价</td></tr>
+    <tr><td>平值（ATM）</td><td>标的价格 ≈ 行权价</td><td>标的价格 ≈ 行权价</td></tr>
+    <tr><td>虚值（OTM）</td><td>标的价格 &lt; 行权价</td><td>标的价格 &gt; 行权价</td></tr>
+  </table></div>
+
+  <h2 id="payoff">4. 四种基本头寸</h2>
+  <div class="table-wrap"><table>
+    <tr><th>头寸</th><th>观点</th><th>最大收益</th><th>最大亏损</th></tr>
+    <tr><td>买入看涨</td><td>看大涨</td><td>理论无限</td><td>权利金</td></tr>
+    <tr><td>买入看跌</td><td>看大跌</td><td>行权价 − 权利金</td><td>权利金</td></tr>
+    <tr><td>卖出看涨</td><td>看不涨</td><td>权利金</td><td><strong>理论无限</strong></td></tr>
+    <tr><td>卖出看跌</td><td>看不跌</td><td>权利金</td><td>行权价 − 权利金（很大）</td></tr>
+  </table></div>
+  <div class="callout example"><span class="title">买入看涨期权的到期盈亏</span><p>某 ETF 现价 3.0 元，买入行权价 3.0 元、1 个月后到期的看涨期权，权利金 0.08 元。到期时：ETF 为 2.8 元 → 不行权，亏 0.08（亏损 100% 权利金）；ETF 为 3.08 元 → 盈亏平衡；ETF 为 3.3 元 → 盈利 0.22 元（收益率 275%）。<strong>多数情况下虚值期权会归零</strong>，这就是"买彩票"心态的陷阱。</p></div>
+
+  <h2 id="pricing">5. 期权价格的构成</h2>
+  <div class="formula">期权价格 = 内在价值 + 时间价值</div>
+  <ul>
+    <li><strong>内在价值</strong>：立即行权能获得的收益（虚值期权为 0）；</li>
+    <li><strong>时间价值</strong>：未来价格向有利方向变动的可能性。随着到期临近会加速衰减，到期时归零。</li>
+  </ul>
+  <p>影响期权价格的因素（Black-Scholes 模型的输入）：标的价格、行权价、剩余期限、<strong>波动率</strong>、无风险利率、分红。其中<strong>隐含波动率（IV）</strong>是最关键的：市场越恐慌，IV 越高，期权越贵。</p>
+  <div class="callout info"><span class="title">"做对方向也亏钱"</span><p>你买了看涨期权，标的也确实上涨了，但如果涨得太慢（时间价值流失）或者隐含波动率大幅下降（如重大事件公布后"IV 塌陷"），你仍可能亏钱。期权交易是方向、时间、波动率三个维度的博弈。</p></div>
+
+  <h2 id="greeks">6. 希腊字母</h2>
+  <div class="table-wrap"><table>
+    <tr><th>字母</th><th>衡量</th><th>直觉</th></tr>
+    <tr><td>Delta（Δ）</td><td>标的价格变动 1 元，期权价格变动多少</td><td>看涨 0 到 1，看跌 −1 到 0；平值约 ±0.5</td></tr>
+    <tr><td>Gamma（Γ）</td><td>Delta 的变化速度</td><td>平值、临近到期时最大，风险变化最剧烈</td></tr>
+    <tr><td>Theta（Θ）</td><td>每过一天期权价值损失多少</td><td>买方的"敌人"，卖方的"朋友"</td></tr>
+    <tr><td>Vega（ν）</td><td>波动率变动 1%，期权价格变动多少</td><td>买方做多波动率，卖方做空波动率</td></tr>
+    <tr><td>Rho（ρ）</td><td>利率变动的影响</td><td>短期期权影响很小</td></tr>
+  </table></div>
+
+  <h2 id="strategies">7. 常见期权策略</h2>
+  <div class="grid">
+    <div class="card"><h4>备兑看涨（Covered Call）</h4><p>持有股票 / ETF 的同时卖出虚值看涨期权，赚取权利金增强收益，代价是放弃大涨的部分收益。</p></div>
+    <div class="card"><h4>保护性看跌（Protective Put）</h4><p>持有股票的同时买入看跌期权，相当于给持仓买了"保险"，代价是权利金。</p></div>
+    <div class="card"><h4>领口策略（Collar）</h4><p>持仓 + 买入看跌 + 卖出看涨，用卖出看涨的权利金抵消保险成本，把收益和亏损都锁定在区间内。</p></div>
+    <div class="card"><h4>牛市 / 熊市价差</h4><p>同时买卖不同行权价的同类期权，降低成本、限定最大盈亏。</p></div>
+    <div class="card"><h4>跨式 / 宽跨式</h4><p>同时买入看涨和看跌，赌大幅波动（不论方向）。</p></div>
+  </div>
+
+  <h2 id="structured">8. 结构化产品：以"雪球"为例</h2>
+  <p>"雪球"是一种挂钩指数（如中证 500、中证 1000）的场外结构化产品，本质是投资者<strong>卖出了一个带敲入、敲出条件的看跌期权</strong>。</p>
+  <ul>
+    <li><strong>敲出</strong>：在观察日，指数高于敲出线（如期初的 100%–103%），产品提前结束，投资者获得约定的票息（如年化 10%+）；</li>
+    <li><strong>未敲入未敲出</strong>：到期获得全部票息；</li>
+    <li><strong>敲入</strong>：存续期内指数跌破敲入线（如期初的 75%–80%），且到期时未能涨回期初水平，投资者需承担指数从期初到期末的<strong>全部跌幅</strong>。</li>
+  </ul>
+  <div class="callout danger"><span class="title">收益与风险不对称</span><p>雪球在震荡市中表现很好，像"稳定的高收益"；但在单边大跌中可能亏损 20%–40%。2024 年初 A 股中小盘指数大幅下跌期间，大量雪球产品集中敲入，很多投资者损失惨重。它的风险特征是"<strong>赚小钱、亏大钱</strong>"，即典型的卖出尾部风险。</p></div>
+
+  <h2 id="leveraged">9. 杠杆与反向 ETF</h2>
+  <p>杠杆 ETF（如 2 倍、3 倍做多）和反向 ETF（做空）主要在海外市场。它们追求的是<strong>单日</strong>收益的倍数，长期持有会因每日再平衡产生"波动损耗"。</p>
+  <div class="callout example"><span class="title">波动损耗示例</span><p>指数第一天涨 10%，第二天跌 9.09%，回到原点。2 倍杠杆 ETF：第一天 +20% → 120，第二天 −18.18% → 98.18，<strong>亏损约 1.8%</strong>。在震荡市中，这种损耗会不断累积。</p></div>
+
+  <h2 id="cb">10. 可转债：攻守兼备的品种</h2>
+  <p>可转换债券是上市公司发行的、可以按约定价格（<strong>转股价</strong>）转换成公司股票的债券。它兼具债券的"保底"属性和股票的上涨弹性，本质上是<strong>"债券 + 看涨期权"</strong>。</p>
+  <h3>核心概念</h3>
+  <div class="table-wrap"><table>
+    <tr><th>概念</th><th>含义</th></tr>
+    <tr><td>面值</td><td>100 元，A 股可转债一手为 10 张（1000 元）</td></tr>
+    <tr><td>转股价</td><td>可转换成股票的价格</td></tr>
+    <tr><td>转股价值</td><td>100 ÷ 转股价 × 正股价格，即立刻转股的价值</td></tr>
+    <tr><td>转股溢价率</td><td>(可转债价格 − 转股价值) ÷ 转股价值。越低，股性越强</td></tr>
+    <tr><td>纯债价值</td><td>只当作普通债券时的价值，构成"债底"</td></tr>
+    <tr><td>强制赎回条款</td><td>正股价格连续一段时间高于转股价一定比例（常见 130%），公司有权按约定价格赎回，迫使投资者转股或卖出</td></tr>
+    <tr><td>下修条款</td><td>正股价格持续低于转股价一定比例时，公司可以下调转股价</td></tr>
+    <tr><td>回售条款</td><td>正股价格持续低迷时，投资者有权将可转债按约定价格卖回给公司</td></tr>
+  </table></div>
+  <div class="callout example"><span class="title">计算示例</span><p>某可转债转股价 10 元，正股现价 12 元，可转债价格 125 元。转股价值 = 100 ÷ 10 × 12 = 120 元；转股溢价率 = (125 − 120) ÷ 120 ≈ 4.2%。溢价率低，可转债价格会紧密跟随正股。</p></div>
+  <h3>可转债的风险</h3>
+  <ul>
+    <li><strong>债底不是保本</strong>：发行公司信用恶化时，债底本身也会下跌，甚至面临违约（近年已有可转债违约、退市案例）；</li>
+    <li><strong>高价、高溢价风险</strong>：价格远高于面值、溢价率很高的"妖债"，可能因强赎或炒作退潮而暴跌；</li>
+    <li><strong>强赎风险</strong>：如果错过强赎公告、未及时转股或卖出，可能只能以接近面值的价格被赎回，造成大幅亏损；</li>
+    <li><strong>交易规则</strong>：可转债 T+0，上市首日涨跌幅限制为 +57.3% / −43.3%，次日起为 ±20%；开通交易需满足适当性要求（如前 20 个交易日日均资产不低于 10 万元并具备 2 年交易经验）。</li>
+  </ul>
+  <h3>常见策略</h3>
+  <ul>
+    <li><strong>双低策略</strong>：选择"价格低 + 溢价率低"的可转债分散持有，定期轮动；</li>
+    <li><strong>打新债</strong>：申购新发行的可转债，历史上多数上市首日高于面值，但也存在破发；</li>
+    <li><strong>可转债基金 / 指数</strong>：交给专业机构，或买中证转债相关 ETF。</li>
+  </ul>
+
+  <h2>本章小测验</h2>
+  <div class="quiz">
+    <div class="q">Q1：卖出看跌期权和买入看涨期权，都是看涨，风险有什么不同？</div>
+    <details><summary>查看答案</summary><p>买入看涨的最大亏损是权利金，风险有限；卖出看跌只能赚权利金，但标的大跌时亏损可能很大，风险远高于收益上限。</p></details>
+  </div>
+  <div class="quiz">
+    <div class="q">Q2：可转债价格 150 元，转股溢价率 60%，这意味着什么？</div>
+    <details><summary>查看答案</summary><p>价格远高于债底，又远高于转股价值，既没有"债性"保护，股性也弱（正股涨 10%，转债可能涨得少）。这类品种通常被炒作推高，风险很大。</p></details>
+  </div>
+</article></main>
+</div>
+</body>
+</html>
